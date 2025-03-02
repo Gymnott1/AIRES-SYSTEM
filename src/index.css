@@ -5,9 +5,15 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+button, a, div, p, h1, h2, h3, h4, h5, h6, label, input[type="button"], input[type="submit"], input[type="file"] {
+ 
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.1s ease;
 }

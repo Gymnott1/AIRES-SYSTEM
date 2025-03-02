@@ -1,15 +1,89 @@
 .App {
   text-align: center;
+  display: block;
 }
+
+.nav_bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1px 2px;
+  background-color: #111827;
+  color: white;
+  position: sticky;
+  top: 0;
+  z-index: 99999;
+  
+
+
+}
+.line {
+  display: flex;
+  background-color: #5b5c5c;
+  margin: 0 0;
+  height: 1px;
+
+}
+
+.dark-mode{
+  background-color: #353434;
+  color: rgb(232, 228, 228);
+}
+
+.nav_bar a {
+  color: white;
+  text-decoration: none;
+}
+
+.nav_bar a:hover {
+  color: #61dafb;
+}
+.left_side {
+  display: flex;
+  align-items: right;
+}
+
+
+
+.right_side {
+  display: flex;
+  align-items: center;
+}
+.right_side span a {
+  margin-left: 10px;
+  text-decoration: none;
+  position: relative;
+}
+
+
 
 .App-logo {
-  height: 40vmin;
+  max-height: 8vmin;
   pointer-events: none;
+  color: rgb(19, 19, 19);
+  background-color: white;
+  border-radius: 50%;
+  padding: 1px;
+  cursor: pointer;
+  margin: 4px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+.nav_bar span {
+  display: flex;
+  font-size: 1.0em;
+  margin-right: 10px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+}
+
+@media ( track  ) {
+  .dark-mode-toggle {
+    animation:  ease-in-out;
+    border-radius: 50%;
+    
   }
 }
 
@@ -28,11 +102,104 @@
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.dark-mode-toggle {
+  animation: ease-in-out ;
+  border-radius: 50%;
+  padding: 2px;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  color: rgb(247, 244, 244);
+  background-color: rgba(223, 218, 218, 0);
+ 
+
+}
+
+
+/* Dropdown container */
+.dropdown_menu_container {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown toggle button styling - keep it consistent with your design */
+.dropdown_toggle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  cursor: pointer;
+  color: inherit;
+  border: none;
+}
+
+/* Dropdown content */
+.dropdown_content {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: #111827;
+  min-width: 180px;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 8888;
+  overflow: hidden;
+  
+  /* Initial state - hidden with animation setup */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+}
+
+/* Visible state when active */
+.dropdown_content.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* Dropdown items styling */
+.dropdown_item {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  color: white;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+
+.dropdown_item:hover {
+  background-color: #18233b68;
+}
+
+.menu_icon {
+  margin-right: 10px;
+}
+
+/* Divider between menu items */
+.dropdown_divider {
+  height: 1px;
+  background-color: #4a4a4a;
+  margin: 4px 0;
+}
+
+/* Theme toggle item styling */
+.theme_toggle {
+  cursor: pointer;
+}
+
+/* Dark mode transition - apply to body */
+body {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Make sure the resize transition works properly */
+.resize-transition {
+  transition: all 0.3s ease;
+}
+
+.side_menu_hidden {
+  display: none;
 }

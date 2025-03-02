@@ -1,0 +1,53 @@
+.auth-container {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    background: #5e5c5c49;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+  }
+
+
+  body.dark-mode .auth-container{
+    background-color: #343a40;
+    border-color: #555;
+    color: white;
+  }
+  
+  .auth-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .auth-container form div {
+    margin-bottom: 15px;
+  }
+  
+  .auth-container label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  .auth-container input[type="text"],
+  .auth-container input[type="email"],
+  .auth-container input[type="password"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+
+  body.dark-mode .auth-container input{
+    background-color: #343a40;
+    border-color: #555;
+    color: white;
+  }
+  
+  .error-msg {
+    color: red;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  

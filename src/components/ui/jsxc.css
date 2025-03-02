@@ -1,0 +1,19 @@
+/* progress.css */
+
+/* Container for the progress bar */
+.progress-container {
+    width: 100%;
+    background-color: #e5e7eb; /* Equivalent to Tailwind's bg-gray-200 */
+    border-radius: 4px;        /* Adjust the radius as needed */
+    overflow: hidden;
+  }
+  
+  /* The filled portion of the progress bar */
+  .progress-fill {
+    height: 8px;               /* Equivalent to Tailwind's h-2 */
+    background-color: #111827; /* Equivalent to Tailwind's bg-blue-500 */
+    width: 0%;                 /* Initial width; will be set inline */
+    border-radius: 4px;        /* Match the container's border-radius */
+    transition: width 0.3s ease-in-out;
+  }
+  

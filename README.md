@@ -1,70 +1,170 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+---
 
-## Available Scripts
+```markdown
+# CV Scanner Web Application
 
-In the project directory, you can run:
+## Overview
 
-### `npm start`
+This web application allows users to upload their CVs and scan them using AI. The app provides feedback, key insights, scores, and suggestions about the CV. It also features a chat interface for users to interact with the AI regarding their CV.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+**Technology Stack:**
+- **Frontend:** React
+- **Backend:** Django
+- **Database:** PostgreSQL
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Prerequisites
 
-### `npm test`
+Before you begin, make sure you have the following installed on your machine:
+- [Git](https://git-scm.com/downloads)
+- [Node.js](https://nodejs.org/) (includes npm)
+- [Python 3.8+](https://www.python.org/downloads/)
+- [PostgreSQL](https://www.postgresql.org/download/) (or you can use a managed instance)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Getting Started
 
-### `npm run build`
+### 1. Clone the Repository
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Open your terminal and run the following commands to clone the repository:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```bash
+git clone https://github.com/yourusername/your-repo.git
+cd your-repo
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 2. Set Up the Backend (Django)
 
-### `npm run eject`
+#### a. Create and Activate a Virtual Environment
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+For **macOS/Linux**:
+```bash
+python3 -m venv env
+source env/bin/activate
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+For **Windows**:
+```bash
+python -m venv env
+env\Scripts\activate
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+#### b. Install Dependencies
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Make sure you're in the Django project directory (if your project structure is different, navigate to where your `requirements.txt` is located):
 
-## Learn More
+```bash
+pip install -r requirements.txt
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+#### c. Configure Environment Variables
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Create a `.env` file in the Django project root (or use your preferred method for setting environment variables) with content similar to:
 
-### Code Splitting
+```
+SECRET_KEY=your_secret_key
+DEBUG=True  # Set to False in production
+DATABASE_NAME=your_database_name
+DATABASE_USER=your_database_user
+DATABASE_PASSWORD=your_database_password
+DATABASE_HOST=localhost
+DATABASE_PORT=5432
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+*(Adjust these settings based on your PostgreSQL configuration.)*
 
-### Analyzing the Bundle Size
+#### d. Apply Migrations and Create a Superuser
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Run the following commands to set up the database and create an admin user:
 
-### Making a Progressive Web App
+```bash
+python manage.py migrate
+python manage.py createsuperuser
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+#### e. Start the Django Development Server
 
-### Advanced Configuration
+```bash
+python manage.py runserver
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+The backend should now be running at [http://127.0.0.1:8000](http://127.0.0.1:8000).
 
-### Deployment
+### 3. Set Up the Frontend (React)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+#### a. Install Dependencies
 
-### `npm run build` fails to minify
+Navigate to the React app directory (for example, if your React code is in a folder named `client`):
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```bash
+cd client
+npm install
+```
+
+#### b. Update API Endpoints
+
+Make sure that the API endpoints in your React application point to the correct URL where the Django server is running (e.g., `http://127.0.0.1:8000`).
+
+#### c. Start the React Development Server
+
+```bash
+npm start
+```
+
+Your React application should now be running at [http://localhost:3000](http://localhost:3000).
+
+## Project Structure
+
+Below is an example structure for the repository:
+
+```
+your-repo/
+├── backend/               # Django backend
+│   ├── manage.py
+│   ├── your_project/      # Django project folder
+│   └── requirements.txt
+├── client/                # React frontend
+│   ├── package.json
+│   └── src/
+└── README.md
+```
+
+## Troubleshooting
+
+- **Environment Variables:**  
+  Ensure your `.env` file is correctly set up and is being loaded by Django. Consider using packages like `python-decouple` or `django-environ` for easier management.
+
+- **Database Connection:**  
+  Verify that your PostgreSQL server is running and that the credentials in your `.env` file match your PostgreSQL configuration.
+
+- **CORS Issues:**  
+  If your React frontend and Django backend are running on different ports, configure [django-cors-headers](https://github.com/adamchainz/django-cors-headers) to handle cross-origin requests.
+
+## Git Commands
+
+For future reference, here are some basic Git commands:
+
+- **Stage Changes:**
+  ```bash
+  git add .
+  ```
+- **Commit Changes:**
+  ```bash
+  git commit -m "Your commit message"
+  ```
+- **Push to GitHub:**
+  ```bash
+  git push origin main
+  ```
+- **Pull Latest Changes:**
+  ```bash
+  git pull origin main
+  ```
+
+## License
+
+This project is licensed under the MIT License.
+```
+
+---
+
+Feel free to customize this file further based on your project specifics. This should give your colleagues clear, step-by-step instructions to set up the development environment and run the application locally.
