@@ -3,6 +3,7 @@
   display: block;
 }
 
+
 .nav_bar {
   display: flex;
   justify-content: space-between;
@@ -14,9 +15,10 @@
   top: 0;
   z-index: 99999;
   
-
-
 }
+
+
+
 .line {
   display: flex;
   background-color: #5b5c5c;
@@ -79,13 +81,7 @@
   -moz-user-select: none;
 }
 
-@media ( track  ) {
-  .dark-mode-toggle {
-    animation:  ease-in-out;
-    border-radius: 50%;
-    
-  }
-}
+
 
 .App-header {
   background-color: #282c34;
@@ -202,4 +198,12 @@ body {
 
 .side_menu_hidden {
   display: none;
+}
+
+@media ( track  ) {
+  .dark-mode-toggle {
+    animation:  ease-in-out;
+    border-radius: 50%;
+    
+  }
 }
