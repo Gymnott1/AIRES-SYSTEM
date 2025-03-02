@@ -167,4 +167,3 @@ This project is licensed under the MIT License.
 
 ---
 
-Feel free to customize this file further based on your project specifics. This should give your colleagues clear, step-by-step instructions to set up the development environment and run the application locally.
