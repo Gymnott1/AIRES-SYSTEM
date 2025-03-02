@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { Button } from './components/ui/button';
 import { Scan, MessageSquare, BotMessageSquare, BookOpenCheck , FileText, SquareUser } from 'lucide-react';
@@ -42,24 +42,25 @@ function Analysis({ resumeId }) {
   };
 
   // Fetch conversation list if user is logged in
-  const fetchConversations = async () => {
+  const fetchConversations = useCallback(async () => {
     if (!token) return;
     try {
       const response = await axios.get('http://localhost:8000/api/user-conversations/', {
         headers: { Authorization: `Token ${token}` }
       });
-      // Expected response: an array of { resume_id, resume_name }
+      
       setConversationList(response.data);
     } catch (error) {
       console.error("Failed to fetch conversation list:", error);
     }
-  };
+  }, [token]);
 
   useEffect(() => {
     if (token) {
       fetchConversations();
     }
-  }, [token]);
+  }, [token, fetchConversations]);
+  
 
   // Load conversation messages for a given resume (from chat-messages endpoint)
   const loadConversation = async (selectedResumeId) => {

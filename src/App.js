@@ -12,7 +12,7 @@ import Login from './auth/Login';
 import Signup from './auth/Signup';
 import { Card, CardContent, CardHeader, CardTitle } from './components/ui/card';
 import { Button } from './components/ui/button';
-import { LogOut, LogIn, Menu, Sun, Moon, CircleUser, Contact, Users, House, FileText, Search, MessageSquare } from 'lucide-react';
+import { LogOut, LogIn, Menu, Sun, Moon, CircleUser, Contact, Users, House } from 'lucide-react';
 
 function App() {
   const [uploadedResume, setUploadedResume] = useState(null);

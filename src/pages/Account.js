@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
-import { User, Mail, CircleUser, Lock, Edit, LogOut, Trash2, Bell, Shield, Clock, Save } from 'lucide-react';
+import { User, CircleUser, Lock, Edit, LogOut, Trash2, Bell, Shield, Save } from 'lucide-react';
 import './pages.css';
 
 function AccountPage() {

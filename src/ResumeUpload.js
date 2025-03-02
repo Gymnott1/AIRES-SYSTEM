@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Card, CardContent, CardHeader, CardTitle } from './components/ui/card';
-import { Button } from './components/ui/button';
-import { Progress } from './components/ui/progress';
-import './container.css'
+import './container.css';
 import { Upload, CircleAlert } from 'lucide-react';
 
 
