@@ -1,19 +1,73 @@
-/* progress.css */
-
-/* Container for the progress bar */
 .progress-container {
     width: 100%;
-    background-color: #e5e7eb; /* Equivalent to Tailwind's bg-gray-200 */
-    border-radius: 4px;        /* Adjust the radius as needed */
+    background-color: #e5e7eb; 
+    border-radius: 4px;       
     overflow: hidden;
   }
   
-  /* The filled portion of the progress bar */
   .progress-fill {
-    height: 8px;               /* Equivalent to Tailwind's h-2 */
-    background-color: #111827; /* Equivalent to Tailwind's bg-blue-500 */
-    width: 0%;                 /* Initial width; will be set inline */
-    border-radius: 4px;        /* Match the container's border-radius */
+    height: 8px;              
+    background-color: #111827;
+    width: 0%;                 
+    border-radius: 4px;       
     transition: width 0.3s ease-in-out;
   }
-  
+
+.tabs-root .tabs-list,
+.tabs-list {
+  display: flex;
+  gap: 0.25rem;           
+  border-radius: 0.5rem;   
+  background-color: #f3f4f6; 
+  padding: 0.25rem;     
+}
+
+
+.tabs-root .tabs-trigger,
+.tabs-trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  border-radius: 0.375rem;
+  padding: 0.375rem 0.75rem; 
+  font-size: 0.875rem;
+  font-weight: 500;         
+  transition: all 0.2s ease-in-out;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #4b5563;         
+}
+
+
+.tabs-root .tabs-trigger:focus,
+.tabs-trigger:focus {
+  outline: none;
+}
+
+.tabs-root .tabs-trigger:focus-visible,
+.tabs-trigger:focus-visible {
+  outline: none;
+ 
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.25);
+}
+
+
+.tabs-root .tabs-trigger.active,
+.tabs-trigger.active {
+  background-color: #ffffff; 
+  color: #000000;            
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); 
+}
+
+.tabs-root .tabs-trigger:not(.active):hover,
+.tabs-trigger:not(.active):hover {
+  color: #000000; 
+}
+
+
+.tabs-root .tabs-content,
+.tabs-content {
+  margin-top: 0.5rem;
+}

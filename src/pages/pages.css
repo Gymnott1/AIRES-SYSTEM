@@ -1,6 +1,3 @@
-/* about-page.css */
-
-/* Base styles with light/dark variants */
 .about-container {
   min-height: 100vh;
   background: linear-gradient(to bottom, #f0f5ff, #e0e8ff);
@@ -17,7 +14,6 @@ body.dark-mode .about-container {
   margin: 0 auto;
 }
 
-/* Page header section */
 .page-header {
   text-align: center;
   margin-bottom: 3rem;
@@ -70,7 +66,6 @@ body.dark-mode .custom-card:hover {
   box-shadow: 0 10px 15px rgba(0, 0, 0, 0.4);
 }
 
-/* Card headers */
 .card-header-primary,
 .card-header-green,
 .card-header-purple {
@@ -96,8 +91,6 @@ body.dark-mode .card-header-purple {
 .card-content {
   padding: 1.5rem;
 }
-
-/* Step process styles */
 .step-container {
   margin-bottom: 1.5rem;
 }
@@ -146,7 +139,6 @@ body.dark-mode .step-description {
   color: #d1d5db;
 }
 
-/* Feature list styles */
 .feature-list {
   list-style-type: none;
   padding: 0;
@@ -168,7 +160,6 @@ body.dark-mode .feature-check {
   color: #34d399;
 }
 
-/* Expert item styles */
 .expert-item {
   display: flex;
   align-items: center;
@@ -209,7 +200,6 @@ body.dark-mode .expert-text {
   color: #f9f9f9;
 }
 
-/* CTA card styles */
 .cta-card {
   border-left: 4px solid #111827;
 }
@@ -254,7 +244,6 @@ body.dark-mode .cta-button:hover {
   background-color: #5a67d8;
 }
 
-/* Footer styles */
 .footer {
   margin-top: 4rem;
   text-align: center;
@@ -266,7 +255,6 @@ body.dark-mode .footer {
   color: #9ca3af;
 }
 
-/* Grid layout for cards */
 .card-grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -274,9 +262,7 @@ body.dark-mode .footer {
   margin-bottom: 3rem;
 }
 
-/* contact-page.css */
 
-/* Base styles with light/dark variants */
 .contact-container {
   min-height: 100vh;
   background: linear-gradient(to bottom, #f0f5ff, #e0e8ff);
@@ -293,7 +279,6 @@ body.dark-mode .contact-container {
   margin: 0 auto;
 }
 
-/* Page header section */
 .page-header {
   text-align: center;
   margin-bottom: 3rem;
@@ -322,7 +307,6 @@ body.dark-mode .page-subtitle {
   color: #d1d5db;
 }
 
-/* Card styles */
 .custom-card {
   background-color: white;
   border-radius: 0.5rem;
@@ -346,7 +330,6 @@ body.dark-mode .custom-card:hover {
   box-shadow: 0 10px 15px rgba(0, 0, 0, 0.4);
 }
 
-/* Card headers */
 .card-header-primary,
 .card-header-green,
 .card-header-purple {
@@ -373,7 +356,6 @@ body.dark-mode .card-header-purple {
   padding: 1.5rem;
 }
 
-/* Contact page specific styles */
 .contact-grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -924,7 +906,6 @@ body.dark-mode .info-value {
   color: #e5e7eb;
 }
 
-/* Form styles */
 .form-group {
   margin-bottom: 1.5rem;
 }
@@ -1036,7 +1017,6 @@ body.dark-mode .cancel-button:hover {
   margin-top: 1rem;
 }
 
-/* Notification preferences */
 .notification-options {
   display: flex;
   flex-direction: column;
@@ -1076,7 +1056,6 @@ body.dark-mode .notification-description {
   color: #9ca3af;
 }
 
-/* Activity list */
 .activity-list {
   display: flex;
   flex-direction: column;
@@ -1140,7 +1119,6 @@ body.dark-mode .activity-time {
   color: #9ca3af;
 }
 
-/* Danger zone */
 .danger-zone .card-header {
   background-color: #ef4444;
 }
@@ -1207,7 +1185,6 @@ body.dark-mode .delete-button:hover {
   background-color: #991b1b;
 }
 
-/* Footer styles */
 .footer {
   margin-top: 4rem;
   text-align: center;
@@ -1219,7 +1196,6 @@ body.dark-mode .footer {
   color: #9ca3af;
 }
 
-/* Media queries for responsive design */
 @media (min-width: 768px) {
   .contact-container {
     padding: 3rem 1.5rem;
@@ -1241,7 +1217,6 @@ body.dark-mode .footer {
   }
 }
 
-/* Media queries for responsive design */
 @media (min-width: 768px) {
   .about-container {
     padding: 3rem 1.5rem;

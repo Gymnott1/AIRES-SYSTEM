@@ -3,7 +3,6 @@ import axios from 'axios';
 import { Button } from './components/ui/button';
 import { Scan, MessageSquare, BotMessageSquare, BookOpenCheck , FileText, SquareUser } from 'lucide-react';
 import { Progress } from './components/ui/progress';
- // Optional: for additional styling
 
 function Analysis({ resumeId }) {
   const [results, setResults] = useState(null);
