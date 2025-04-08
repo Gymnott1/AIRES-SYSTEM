@@ -26,7 +26,7 @@ const preprocessResumeContent = (content) => {
     }
 
     if (trimmedLine.includes('[') && trimmedLine.includes('](')) {
-      trimmedLine = trimmedLine.replace(/\[([^\]]+)\]\s*\(([^\)]+)\)/g, '[$1]($2)');
+      trimmedLine = trimmedLine.replace(/\[([^\]]+)\]\s*\(([^)]+)\)/g, '[$1]($2)');
     }
 
     return trimmedLine;
@@ -220,16 +220,14 @@ function ResumeRewrite({ resumeId }) {
         );
       }
       else if (line.includes('[') && line.includes('](')) {
-        const linkMatch = line.match(/\[([^\]]+)\]\(([^\)]+)\)/);
+        const linkMatch = line.match(/\[([^\]]+)\]\(([^)]+)\)/);
         if (linkMatch) {
           const [, text, url] = linkMatch;
           return <p key={index} className="my-1"><a href={url} target="_blank" rel="noopener noreferrer">{text}</a></p>;
         }
       }
-      else {
-        currentListType = null;
-        return <p key={index} className="my-1">{line}</p>;
-      }
+      currentListType = null;
+      return <p key={index} className="my-1">{line}</p>;
     });
   };
 
