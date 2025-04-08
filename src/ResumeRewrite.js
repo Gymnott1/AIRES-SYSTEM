@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Button } from './components/ui/button';
 import { FileDown, FileEdit, RotateCw, FileWarning } from 'lucide-react';
@@ -9,26 +9,63 @@ import { Alert, AlertDescription } from './components/ui/alert';
 import { useToast } from './components/ui/use-toast';
 import './rewrite.css';
 
-function ResumeRewrite({ resumeId, originalContent }) {
+// Preprocessing function
+const preprocessResumeContent = (content) => {
+  if (!content) return '';
+
+  const lines = content.split('\n');
+  const processedLines = lines.map(line => {
+    let trimmedLine = line.trim();
+
+    if (trimmedLine.startsWith('#')) {
+      trimmedLine = trimmedLine.replace(/^(#+)/, '$1 ');
+    }
+
+    if (trimmedLine.startsWith('*') || trimmedLine.startsWith('-')) {
+      trimmedLine = trimmedLine.replace(/^([*-])/, '$1 ');
+    }
+
+    if (trimmedLine.includes('[') && trimmedLine.includes('](')) {
+      trimmedLine = trimmedLine.replace(/\[([^\]]+)\]\s*\(([^\)]+)\)/g, '[$1]($2)');
+    }
+
+    return trimmedLine;
+  });
+
+  return processedLines.join('\n');
+};
+
+function ResumeRewrite({ resumeId }) {
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
+  const [originalPdfUrl, setOriginalPdfUrl] = useState('');
   const [rewrittenResume, setRewrittenResume] = useState(null);
   const [previewMode, setPreviewMode] = useState('side-by-side');
   const [feedback, setFeedback] = useState('');
   const [error, setError] = useState(null);
   const [downloadLoading, setDownloadLoading] = useState(false);
 
+  useEffect(() => {
+    if (resumeId) {
+      const pdfUrl = `http://localhost:8000/api/resume/${resumeId}/pdf/`;
+      setOriginalPdfUrl(pdfUrl);
+    } else {
+      setOriginalPdfUrl('');
+    }
+  }, [resumeId]);
+
   const handleRewriteRequest = async () => {
     setLoading(true);
     setError(null);
-    
+
     try {
       const response = await axios.post(
         'http://localhost:8000/api/rewrite_resume/',
         { resume_id: resumeId }
       );
-      
-      setRewrittenResume(response.data.rewritten_content);
+
+      const processedContent = preprocessResumeContent(response.data.rewritten_content);
+      setRewrittenResume(processedContent);
       toast({
         title: "Resume rewritten successfully",
         description: "Your resume has been enhanced with AI",
@@ -56,22 +93,22 @@ function ResumeRewrite({ resumeId, originalContent }) {
       });
       return;
     }
-    
+
     setLoading(true);
     setError(null);
-    
+
     try {
       const response = await axios.post(
         'http://localhost:8000/api/revise_resume/',
-        { 
+        {
           resume_id: resumeId,
           feedback: feedback,
           current_version: rewrittenResume
         }
       );
-      
-      // Handle the response the same way as rewrite_resume
-      setRewrittenResume(response.data.revised_content);
+
+      const processedContent = preprocessResumeContent(response.data.revised_content);
+      setRewrittenResume(processedContent);
       setFeedback('');
       toast({
         title: "Resume revised successfully",
@@ -93,23 +130,23 @@ function ResumeRewrite({ resumeId, originalContent }) {
 
   const handleDownload = async () => {
     setDownloadLoading(true);
-    
+
     try {
       const response = await axios.post(
         'http://localhost:8000/api/generate_pdf/',
         { resume_id: resumeId, content: rewrittenResume },
         { responseType: 'blob' }
       );
-      
+
       const blob = new Blob([response.data], { type: 'application/pdf' });
       const url = window.URL.createObjectURL(blob);
-      
+
       const link = document.createElement('a');
       link.href = url;
       link.setAttribute('download', 'improved_resume.pdf');
       document.body.appendChild(link);
       link.click();
-      
+
       window.URL.revokeObjectURL(url);
       document.body.removeChild(link);
       toast({
@@ -132,39 +169,43 @@ function ResumeRewrite({ resumeId, originalContent }) {
 
   const renderResumeContent = (content) => {
     if (!content) return null;
-    
-    // Process the content to properly render markdown without showing the symbols
+
     const lines = content.split('\n');
+    let currentListType = null;
+
     return lines.map((line, index) => {
-      // Heading level 1 (# Heading)
       if (line.startsWith('# ')) {
         return <h1 key={index} className="text-2xl font-bold mt-4 mb-2">{line.substring(2)}</h1>;
-      } 
-      // Heading level 2 (## Heading)
+      }
       else if (line.startsWith('## ')) {
         return <h2 key={index} className="text-xl font-bold mt-3 mb-2">{line.substring(3)}</h2>;
-      } 
-      // Heading level 3 (### Heading)
+      }
       else if (line.startsWith('### ')) {
         return <h3 key={index} className="text-lg font-bold mt-2 mb-1">{line.substring(4)}</h3>;
-      } 
-      // List item (* Item)
+      }
       else if (line.startsWith('* ')) {
-        return <li key={index} className="ml-5 list-disc">{line.substring(2)}</li>;
+        if (currentListType !== 'ul') {
+          currentListType = 'ul';
+          return <ul key={index}><li className="ml-5 list-disc">{line.substring(2)}</li></ul>;
+        } else {
+          return <li key={index} className="ml-5 list-disc">{line.substring(2)}</li>;
+        }
       }
-      // List item (- Item) 
       else if (line.startsWith('- ')) {
-        return <li key={index} className="ml-5 list-disc">{line.substring(2)}</li>;
+        if (currentListType !== 'ul') {
+          currentListType = 'ul';
+          return <ul key={index}><li className="ml-5 list-disc">{line.substring(2)}</li></ul>;
+        } else {
+          return <li key={index} className="ml-5 list-disc">{line.substring(2)}</li>;
+        }
       }
-      // Horizontal rule
       else if (line.startsWith('---')) {
         return <hr key={index} className="my-2" />;
-      } 
-      // Empty line
+      }
       else if (line.trim() === '') {
+        currentListType = null;
         return <div key={index} className="h-2"></div>;
-      } 
-      // Bold text (**text**)
+      }
       else if (line.includes('**')) {
         const parts = line.split(/(\*\*.*?\*\*)/g);
         return (
@@ -178,8 +219,15 @@ function ResumeRewrite({ resumeId, originalContent }) {
           </p>
         );
       }
-      // Regular paragraph
+      else if (line.includes('[') && line.includes('](')) {
+        const linkMatch = line.match(/\[([^\]]+)\]\(([^\)]+)\)/);
+        if (linkMatch) {
+          const [, text, url] = linkMatch;
+          return <p key={index} className="my-1"><a href={url} target="_blank" rel="noopener noreferrer">{text}</a></p>;
+        }
+      }
       else {
+        currentListType = null;
         return <p key={index} className="my-1">{line}</p>;
       }
     });
@@ -194,7 +242,7 @@ function ResumeRewrite({ resumeId, originalContent }) {
           className={loading ? 'rewrite-btn-loading' : 'rewrite-btn'}
         >
           <span>
-            {loading ? 'Rewriting...' : 'Rewrite Resume with AI'} 
+            {loading ? 'Rewriting...' : 'Rewrite Resume with AI'}
             {loading ? <RotateCw className="ml-2 h-4 w-4 animate-spin" /> : <FileEdit className="ml-2 h-4 w-4" />}
           </span>
         </Button>
@@ -207,17 +255,27 @@ function ResumeRewrite({ resumeId, originalContent }) {
                 <TabsTrigger className="tab-trigger" value="original">Original</TabsTrigger>
                 <TabsTrigger className="tab-trigger" value="rewritten">Rewritten</TabsTrigger>
               </TabsList>
-            
+
               <TabsContent value="side-by-side" className="mt-4 grid grid-cols-2 gap-4">
                 <Card>
                   <CardHeader>
                     <CardTitle>Original Resume</CardTitle>
                   </CardHeader>
                   <CardContent className="resume-content">
-                    <pre className="whitespace-pre-wrap">{originalContent}</pre>
+                  {originalPdfUrl ? (
+                    <iframe
+                      key={originalPdfUrl}
+                      src={originalPdfUrl}
+                      title="Original Resume PDF Test"
+                      style={{ width: '30vw', height: '150vh', border: '1px solid red' }}
+                      loading="lazy"
+                    />
+                  ) : (
+                    <p>Loading original PDF...</p>
+                  )}
                   </CardContent>
                 </Card>
-                
+
                 <Card>
                   <CardHeader>
                     <CardTitle>AI-Enhanced Resume</CardTitle>
@@ -229,18 +287,28 @@ function ResumeRewrite({ resumeId, originalContent }) {
                   </CardContent>
                 </Card>
               </TabsContent>
-              
+
               <TabsContent value="original" className="mt-4">
                 <Card>
                   <CardHeader>
                     <CardTitle>Original Resume</CardTitle>
                   </CardHeader>
                   <CardContent className="resume-content">
-                    <pre className="whitespace-pre-wrap">{originalContent}</pre>
+                  {originalPdfUrl ? (
+                    <iframe
+                      key={originalPdfUrl}
+                      src={originalPdfUrl}
+                      title="Original Resume PDF Test"
+                      style={{ width: '80vw', height: '150vh', border: '1px solid red' }}
+                      loading="lazy"
+                    />
+                  ) : (
+                    <p>Loading original PDF...</p>
+                  )}
                   </CardContent>
                 </Card>
               </TabsContent>
-              
+
               <TabsContent value="rewritten" className="mt-4">
                 <Card>
                   <CardHeader>
@@ -254,29 +322,29 @@ function ResumeRewrite({ resumeId, originalContent }) {
                 </Card>
               </TabsContent>
             </Tabs>
-            
+
             <div className="flex justify-end mt-4">
-              <Button 
-                onClick={handleDownload} 
+              <Button
+                onClick={handleDownload}
                 disabled={downloadLoading}
                 className="download-btn"
               >
-                {downloadLoading ? 
-                  <RotateCw className="mr-2 h-4 w-4 animate-spin" /> : 
+                {downloadLoading ?
+                  <RotateCw className="mr-2 h-4 w-4 animate-spin" /> :
                   <FileDown className="mr-2 h-4 w-4" />
                 }
                 {downloadLoading ? 'Downloading...' : 'Download PDF'}
               </Button>
             </div>
           </div>
-          
+
           {error && (
             <Alert variant="destructive" className="mt-4">
               <FileWarning className="h-4 w-4" />
               <AlertDescription>{error}</AlertDescription>
             </Alert>
           )}
-          
+
           <div className="mt-8">
             <Card>
               <CardHeader>
@@ -296,8 +364,8 @@ function ResumeRewrite({ resumeId, originalContent }) {
                   disabled={loading || !feedback.trim()}
                   className="revision-btn"
                 >
-                  {loading ? 
-                    <RotateCw className="mr-2 h-4 w-4 animate-spin" /> : 
+                  {loading ?
+                    <RotateCw className="mr-2 h-4 w-4 animate-spin" /> :
                     <RotateCw className="mr-2 h-4 w-4" />
                   }
                   {loading ? 'Processing...' : 'Request Revision'}

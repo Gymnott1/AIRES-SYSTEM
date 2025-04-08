@@ -17,28 +17,59 @@ function Analysis({ resumeId }) {
   const token = localStorage.getItem('authToken');
 
   // Fetch analysis results
-  const handleAnalysis = async () => {
-    setLoading(true);
-    try {
-      const response = await axios.post(
-        'http://localhost:8000/api/analyze_resume/',
-        { resume_id: resumeId }
-      );
-      const analysisText = response.data.analysis;
-      const jsonStart = analysisText.indexOf('{');
-      const jsonEnd = analysisText.lastIndexOf('}');
-      let jsonStr = '';
-      if (jsonStart !== -1 && jsonEnd !== -1 && jsonEnd > jsonStart) {
-        jsonStr = analysisText.substring(jsonStart, jsonEnd + 1);
-      }
-      const parsedResults = JSON.parse(jsonStr);
-      setResults(parsedResults);
-    } catch (error) {
-      console.error("Analysis error", error);
-      alert("Analysis failed");
+  // Improved handleAnalysis function to extract the first valid JSON object
+const handleAnalysis = async () => {
+  setLoading(true);
+  try {
+    const response = await axios.post(
+      'http://localhost:8000/api/analyze_resume/',
+      { resume_id: resumeId }
+    );
+    const analysisText = response.data.analysis;
+    
+    // Find the first valid JSON object in the response
+    const firstJsonObject = extractFirstJsonObject(analysisText);
+    if (firstJsonObject) {
+      console.log("Parsed results:", firstJsonObject);
+      setResults(firstJsonObject);
+    } else {
+      throw new Error("Couldn't extract valid JSON from the response");
     }
-    setLoading(false);
-  };
+  } catch (error) {
+    console.error("Analysis error", error);
+    alert("Analysis failed: " + error.message);
+  }
+  setLoading(false);
+};
+
+// Helper function to extract the first valid JSON object from a string
+const extractFirstJsonObject = (text) => {
+  let bracketCount = 0;
+  let startIndex = -1;
+  
+  for (let i = 0; i < text.length; i++) {
+    if (text[i] === '{') {
+      if (bracketCount === 0) {
+        startIndex = i;
+      }
+      bracketCount++;
+    } else if (text[i] === '}') {
+      bracketCount--;
+      if (bracketCount === 0 && startIndex !== -1) {
+        // Found a complete JSON object
+        const jsonStr = text.substring(startIndex, i + 1);
+        try {
+          return JSON.parse(jsonStr);
+        } catch (e) {
+          // If parsing fails, continue searching
+          console.warn("Found invalid JSON, continuing search:", e);
+        }
+      }
+    }
+  }
+  
+  return null; // No valid JSON found
+};
 
   // Fetch conversation list if user is logged in
   const fetchConversations = useCallback(async () => {
@@ -80,15 +111,15 @@ function Analysis({ resumeId }) {
   const handleChatSubmit = async (e) => {
     e.preventDefault();
     if (!newMessage.trim()) return;
-
+  
     const userMessage = { type: 'user', content: newMessage };
     setMessages([...messages, userMessage]);
     const messageToSend = newMessage;
     setNewMessage('');
-
+  
     let headers = { 'Content-Type': 'application/json' };
     if (token) headers['Authorization'] = `Token ${token}`;
-
+  
     try {
       // Post the user's message to your chat endpoint
       const response = await axios.post('http://localhost:8000/api/chat/', {
@@ -96,9 +127,16 @@ function Analysis({ resumeId }) {
         message: messageToSend,
         conversation: messages
       }, { headers });
-      const aiReply = response.data.reply;
+      let aiReply = response.data.reply;
+  
+      // Sanitize and format the AI reply
+      aiReply = aiReply.replace(/[^\w\s.,:;!?'"()-]/g, ''); // Remove special characters
+      aiReply = aiReply.replace(/\s+/g, ' ').trim(); // Remove extra spaces
+      aiReply = aiReply.replace(/(\d+\.\s)/g, '<br />$1'); // Add line breaks before numbered points
+      aiReply = aiReply.replace(/\n/g, '<br />'); // Replace new lines with HTML line breaks
+  
       setMessages((prev) => [...prev, { type: 'ai', content: aiReply }]);
-
+  
       // If authenticated, save the AI message to your conversation endpoint
       if (token) {
         await axios.post('http://localhost:8000/api/chat-messages/', {
@@ -115,6 +153,9 @@ function Analysis({ resumeId }) {
       ]);
     }
   };
+  
+  
+  
 
   return (
     <div className="scanbtndiv">
@@ -224,9 +265,10 @@ function Analysis({ resumeId }) {
                 className={`flexchat-c ${message.type === 'user' ? 'user-message-c' : 'ai-message-c'}`}
               >
                 {message.type === 'user' ? <SquareUser className="user-icon" /> : <BotMessageSquare className="bot-icon" />}
-                <div className={`flexchat ${message.type === 'user' ? 'user-message' : 'ai-message'}`}>
-                  {message.content}
-                </div>
+                <div
+                  className={`flexchat ${message.type === 'user' ? 'user-message' : 'ai-message'}`}
+                  dangerouslySetInnerHTML={{ __html: message.content }}
+                />
               </div>
             ))}
           </div>
@@ -241,8 +283,13 @@ function Analysis({ resumeId }) {
           </form>
         </div>
       )}
+
+
+
     </div>
   );
 }
 
 export default Analysis;
+
+
