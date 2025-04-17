@@ -1,0 +1,941 @@
+/* RecruiterView.css - Professional styling for the AIRES Candidate Analyzer */
+
+:root {
+  /* Light Mode Colors */
+  --bg-primary: #f8fafc;
+  --card-bg: #ffffff;
+  --text-primary: #0f172a;
+  --text-secondary: #64748b;
+  --text-muted: #94a3b8;
+  --border-color: #e2e8f0;
+  --input-bg: #ffffff;
+  --input-border: #cbd5e1;
+  --button-primary: #2563eb;
+  --button-primary-hover: #1d4ed8;
+  --button-primary-text: #ffffff;
+  --button-secondary: #f1f5f9;
+  --button-secondary-hover: #e2e8f0;
+  --upload-zone-bg: #f8fafc;
+  --upload-zone-border: #e2e8f0;
+  --error-color: #ef4444;
+  --warning-color: #f59e0b;
+  --success-color: #10b981;
+  --progress-bg: #e2e8f0;
+  --progress-fill-default: #3b82f6;
+  --radar-grid: #e2e8f0;
+  --radar-data: rgba(59, 130, 246, 0.5);
+  --radar-data-border: #3b82f6;
+  --radar-label: #64748b;
+  --placeholder-bg: #f1f5f9;
+  --placeholder-text: #94a3b8;
+  
+  /* Recommendation Tier Colors */
+  --tier-strong-bg: rgba(16, 185, 129, 0.1);
+  --tier-strong-border: rgba(16, 185, 129, 0.5);
+  --tier-strong-text: #10b981;
+  --tier-good-bg: rgba(59, 130, 246, 0.1);
+  --tier-good-border: rgba(59, 130, 246, 0.5);
+  --tier-good-text: #3b82f6;
+  --tier-consider-bg: rgba(245, 158, 11, 0.1);
+  --tier-consider-border: rgba(245, 158, 11, 0.5);
+  --tier-consider-text: #f59e0b;
+  --tier-weak-bg: rgba(239, 68, 68, 0.1);
+  --tier-weak-border: rgba(239, 68, 68, 0.5);
+  --tier-weak-text: #ef4444;
+  
+  /* Skills Score Colors */
+  --skills-progress: #2563eb;
+  --experience-progress: #10b981;
+  --education-progress: #8b5cf6;
+  --keywords-progress: #f59e0b;
+  
+  /* Spacing and Layout */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --border-radius-sm: 0.25rem;
+  --border-radius-md: 0.5rem;
+  --border-radius-lg: 0.75rem;
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* Dark Mode Variables */
+.dark-mode {
+  --bg-primary: #0f172a;
+  --card-bg: #1e293b;
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+  --border-color: #334155;
+  --input-bg: #1e293b;
+  --input-border: #475569;
+  --button-primary: #3b82f6;
+  --button-primary-hover: #2563eb;
+  --button-primary-text: #ffffff;
+  --button-secondary: #334155;
+  --button-secondary-hover: #475569;
+  --upload-zone-bg: #1e293b;
+  --upload-zone-border: #334155;
+  --error-color: #f87171;
+  --warning-color: #fbbf24;
+  --success-color: #34d399;
+  --progress-bg: #334155;
+  --progress-fill-default: #3b82f6;
+  --radar-grid: #334155;
+  --radar-data: rgba(59, 130, 246, 0.6);
+  --radar-data-border: #3b82f6;
+  --radar-label: #cbd5e1;
+  --placeholder-bg: #1e293b;
+  --placeholder-text: #94a3b8;
+  
+  /* Recommendation Tier Colors - Dark Mode */
+  --tier-strong-bg: rgba(16, 185, 129, 0.15);
+  --tier-strong-border: rgba(16, 185, 129, 0.5);
+  --tier-strong-text: #34d399;
+  --tier-good-bg: rgba(59, 130, 246, 0.15);
+  --tier-good-border: rgba(59, 130, 246, 0.5);
+  --tier-good-text: #60a5fa;
+  --tier-consider-bg: rgba(245, 158, 11, 0.15);
+  --tier-consider-border: rgba(245, 158, 11, 0.5);
+  --tier-consider-text: #fbbf24;
+  --tier-weak-bg: rgba(239, 68, 68, 0.15);
+  --tier-weak-border: rgba(239, 68, 68, 0.5);
+  --tier-weak-text: #f87171;
+  
+  /* Skills Score Colors - Dark Mode */
+  --skills-progress: #3b82f6;
+  --experience-progress: #10b981;
+  --education-progress: #8b5cf6;
+  --keywords-progress: #f59e0b;
+}
+
+/* Global Styles */
+.recruiter-view {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  padding: var(--space-lg);
+}
+
+/* Main Card */
+.main-card {
+  background-color: var(--card-bg);
+  border-radius: var(--border-radius-lg);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-lg);
+  max-width: 1200px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.card-header {
+  border-bottom: 1px solid var(--border-color);
+  padding: var(--space-lg) var(--space-xl);
+}
+
+.main-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: var(--space-xs);
+}
+
+.card-content {
+  padding: var(--space-xl);
+}
+
+/* Grid Layout */
+.grid-layout {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: var(--space-xl);
+}
+
+@media (max-width: 1024px) {
+  .grid-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Input Column */
+.input-column {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.input-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.input-label {
+  font-weight: 500;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  margin-bottom: var(--space-xs);
+}
+
+.textarea-input {
+  background-color: var(--input-bg);
+  border: 1px solid var(--input-border);
+  border-radius: var(--border-radius-md);
+  padding: var(--space-md);
+  color: var(--text-primary);
+  font-size: 0.875rem;
+  min-height: 180px;
+  resize: vertical;
+  transition: border-color 0.15s ease;
+}
+
+.textarea-input:focus {
+  border-color: var(--button-primary);
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+}
+
+.dark-mode .textarea-input:focus {
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
+}
+
+/* Upload Zone */
+.upload-zone {
+  position: relative;
+  margin-bottom: var(--space-md);
+}
+
+.file-input {
+  opacity: 0;
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+
+.upload-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--upload-zone-bg);
+  border: 2px dashed var(--upload-zone-border);
+  border-radius: var(--border-radius-md);
+  padding: var(--space-xl);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-height: 120px;
+}
+
+.upload-label:hover {
+  border-color: var(--button-primary);
+  background-color: var(--button-secondary);
+}
+
+.upload-label.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.upload-icon {
+  color: var(--text-secondary);
+  margin-bottom: var(--space-sm);
+}
+
+.upload-subtext {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: var(--space-xs);
+}
+
+/* Selected Files List */
+.selected-files-list {
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  padding: var(--space-md);
+  margin-top: var(--space-md);
+  background-color: var(--card-bg);
+}
+
+.files-header {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin-bottom: var(--space-sm);
+}
+
+.selected-files-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.selected-file-item {
+  display: flex;
+  align-items: center;
+  font-size: 0.875rem;
+  color: var(--text-primary);
+  padding: var(--space-sm);
+  border-radius: var(--border-radius-sm);
+  background-color: var(--button-secondary);
+}
+
+.file-icon {
+  color: var(--text-secondary);
+  margin-right: var(--space-sm);
+  flex-shrink: 0;
+}
+
+.file-name {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-right: var(--space-sm);
+}
+
+.file-size {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-right: var(--space-sm);
+}
+
+.remove-file-btn {
+  color: var(--text-muted);
+  padding: var(--space-xs);
+  border-radius: var(--border-radius-sm);
+  transition: color 0.2s ease;
+}
+
+.remove-file-btn:hover {
+  color: var(--error-color);
+}
+
+.max-files-warning {
+  color: var(--warning-color);
+  font-size: 0.75rem;
+  margin-top: var(--space-xs);
+}
+
+/* Error Message */
+.error-message {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-md);
+  border-radius: var(--border-radius-md);
+  background-color: rgba(239, 68, 68, 0.1);
+  color: var(--error-color);
+  font-size: 0.875rem;
+  margin-top: var(--space-md);
+}
+
+.dark-mode .error-message {
+  background-color: rgba(239, 68, 68, 0.15);
+}
+
+/* Analyze Button */
+.analyze-button-container {
+  margin-top: var(--space-lg);
+}
+
+.analyze-button {
+  width: 100%;
+  background-color: var(--button-primary);
+  color: var(--button-primary-text);
+  font-weight: 500;
+  padding: var(--space-md);
+  border-radius: var(--border-radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.15s ease;
+}
+
+.analyze-button:hover:not(:disabled) {
+  background-color: var(--button-primary-hover);
+}
+
+.analyze-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Results Column */
+.results-column {
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+/* Loading State */
+.loading-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-md);
+  padding: var(--space-xl);
+  text-align: center;
+  color: var(--text-secondary);
+  min-height: 300px;
+}
+
+.loading-progress {
+  width: 100%;
+  height: 6px;
+  margin-top: var(--space-md);
+  background-color: var(--progress-bg);
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+/* Placeholder for Results */
+.placeholder-results {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-md);
+  padding: var(--space-xl);
+  text-align: center;
+  color: var(--placeholder-text);
+  background-color: var(--placeholder-bg);
+  border-radius: var(--border-radius-lg);
+  min-height: 300px;
+}
+
+.placeholder-icon {
+  color: var(--text-muted);
+  opacity: 0.5;
+}
+
+/* Analysis Results */
+.analysis-results {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.results-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: var(--space-sm);
+}
+
+.results-subtitle {
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-top: var(--space-lg);
+  margin-bottom: var(--space-md);
+}
+
+/* Ranking Card */
+.ranking-card {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  overflow: hidden;
+}
+
+.ranking-visualization {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.rank-bar-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.rank-info {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.rank-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  background-color: var(--button-secondary);
+  border-radius: 50%;
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+.rank-name {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.rank-bar-wrapper {
+  height: 12px;
+  background-color: var(--progress-bg);
+  border-radius: 9999px;
+  overflow: hidden;
+  position: relative;
+}
+
+.rank-bar {
+  height: 100%;
+  background-color: var(--button-primary);
+  border-radius: 9999px;
+  position: relative;
+}
+
+.rank-bar::after {
+  content: attr(data-score);
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: white;
+  white-space: nowrap;
+}
+
+/* Comparative Analysis Card */
+.comparison-card {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  overflow: hidden;
+}
+
+.comparison-text {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--text-primary);
+}
+
+/* Candidate Grid */
+.candidate-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: var(--space-lg);
+}
+
+@media (max-width: 768px) {
+  .candidate-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Candidate Cards */
+.candidate-card {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.candidate-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Tier-specific styling */
+.candidate-card.tier-strong {
+  border-left: 4px solid var(--tier-strong-text);
+  background-color: var(--tier-strong-bg);
+}
+
+.candidate-card.tier-good {
+  border-left: 4px solid var(--tier-good-text);
+  background-color: var(--tier-good-bg);
+}
+
+.candidate-card.tier-consider {
+  border-left: 4px solid var(--tier-consider-text);
+  background-color: var(--tier-consider-bg);
+}
+
+.candidate-card.tier-weak {
+  border-left: 4px solid var(--tier-weak-text);
+  background-color: var(--tier-weak-bg);
+}
+
+.candidate-header {
+  padding: var(--space-md);
+  border-bottom: 1px solid var(--border-color);
+  position: relative;
+}
+
+.candidate-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-sm);
+}
+
+/* Recommendation Badge */
+.recommendation-badge {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--border-radius-sm);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-bottom: var(--space-sm);
+}
+
+.recommendation-badge.tier-strong {
+  background-color: var(--tier-strong-bg);
+  color: var(--tier-strong-text);
+  border: 1px solid var(--tier-strong-border);
+}
+
+.recommendation-badge.tier-good {
+  background-color: var(--tier-good-bg);
+  color: var(--tier-good-text);
+  border: 1px solid var(--tier-good-border);
+}
+
+.recommendation-badge.tier-consider {
+  background-color: var(--tier-consider-bg);
+  color: var(--tier-consider-text);
+  border: 1px solid var(--tier-consider-border);
+}
+
+.recommendation-badge.tier-weak {
+  background-color: var(--tier-weak-bg);
+  color: var(--tier-weak-text);
+  border: 1px solid var(--tier-weak-border);
+}
+
+/* Score Sections */
+.score-section {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-sm);
+}
+
+.overall-score-section {
+  margin-top: var(--space-sm);
+}
+
+.score-progress {
+  flex: 1;
+  height: 8px;
+  background-color: var(--progress-bg);
+  border-radius: 9999px;
+  overflow: hidden;
+  position: relative;
+}
+
+.overall-progress::-webkit-progress-value {
+  background-color: var(--button-primary);
+}
+
+.skills-progress::-webkit-progress-value {
+  background-color: var(--skills-progress);
+}
+
+.experience-progress::-webkit-progress-value {
+  background-color: var(--experience-progress);
+}
+
+.education-progress::-webkit-progress-value {
+  background-color: var(--education-progress);
+}
+
+.keywords-progress::-webkit-progress-value {
+  background-color: var(--keywords-progress);
+}
+
+.score-percent-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  min-width: 2.5rem;
+  text-align: right;
+}
+
+/* Candidate Content */
+.candidate-content {
+  padding: var(--space-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+/* Scores and Radar */
+.scores-and-radar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  justify-content: space-between;
+}
+
+.structured-scores {
+  flex: 1;
+  min-width: 200px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.structured-score-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-size: 0.75rem;
+}
+
+.structured-score-label {
+  min-width: 80px;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.category-icon {
+  color: var(--text-secondary);
+}
+
+/* Radar Chart */
+.radar-chart-container {
+  flex: 0 0 140px;
+  height: 140px;
+}
+
+.radar-chart {
+  width: 100%;
+  height: 100%;
+}
+
+.radar-grid-circle {
+  fill: none;
+  stroke: var(--radar-grid);
+  stroke-width: 0.5;
+  stroke-dasharray: 2 2;
+}
+
+.radar-axis {
+  stroke: var(--radar-grid);
+  stroke-width: 0.5;
+}
+
+.radar-label {
+  fill: var(--radar-label);
+  font-size: 8px;
+  text-anchor: middle;
+}
+
+.radar-data-polygon {
+  fill: var(--radar-data);
+  stroke: var(--radar-data-border);
+  stroke-width: 1.5;
+}
+
+/* Detail Sections */
+.detail-section {
+  padding: var(--space-md);
+  border-radius: var(--border-radius-sm);
+  background-color: rgba(0, 0, 0, 0.03);
+}
+
+.dark-mode .detail-section {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.detail-heading {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: var(--space-md);
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+/* Keywords */
+.keyword-columns {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: var(--space-md);
+}
+
+@media (max-width: 480px) {
+  .keyword-columns {
+    grid-template-columns: 1fr;
+  }
+}
+
+.keyword-subheading {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: var(--space-sm);
+}
+
+.matched-keywords {
+ 
+  text-overflow: ellipsis;
+  color: var(--success-color);
+}
+
+.missing-keywords {
+  color: var(--error-color);
+}
+
+/* Strengths/Weaknesses */
+.strengths-weaknesses {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-md);
+}
+
+@media (max-width: 480px) {
+  .strengths-weaknesses {
+    grid-template-columns: 1fr;
+  }
+}
+
+.strength-weakness-title {
+  color: rgb(0, 255, 64);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: var(--space-sm);
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+/* Red Flags */
+.red-flags-section {
+  background-color: rgba(239, 68, 68, 0.05);
+  border-left: 3px solid var(--error-color);
+}
+
+.dark-mode .red-flags-section {
+  background-color: rgba(239, 68, 68, 0.1);
+}
+
+/* Candidate Summary */
+.candidate-summary {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--text-primary);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1024px) {
+  .recruiter-view {
+    padding: var(--space-md);
+  }
+  
+  .card-content {
+    padding: var(--space-md);
+  }
+  
+  .grid-layout {
+    gap: var(--space-lg);
+  }
+}
+
+@media (max-width: 768px) {
+  .keyword-columns,
+  .strengths-weaknesses {
+    grid-template-columns: 1fr;
+  }
+  
+  .scores-and-radar {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .radar-chart-container {
+    flex: 0 0 180px;
+    height: 180px;
+    width: 180px;
+    margin-top: var(--space-md);
+  }
+}
+
+@media (max-width: 480px) {
+  .recruiter-view {
+    padding: var(--space-sm);
+  }
+  
+  .card-content {
+    padding: var(--space-sm);
+  }
+}
+
+/* Utility Classes */
+.mt-0 { margin-top: 0; }
+.mb-0 { margin-bottom: 0; }
+.text-sm { font-size: 0.875rem; }
+.text-xs { font-size: 0.75rem; }
+.text-lg { font-size: 1.125rem; }
+.font-medium { font-weight: 500; }
+.font-semibold { font-weight: 600; }
+.italic { font-style: italic; }
+.text-muted-foreground { color: var(--text-muted); }
+.inline-block { display: inline-block; }
+.mr-1 { margin-right: var(--space-xs); }
+.mr-2 { margin-right: var(--space-sm); }
+
+/* Fix for Firefox progress bars */
+progress::-moz-progress-bar { 
+  background-color: var(--button-primary);
+}
+
+.skills-progress::-moz-progress-bar {
+  background-color: var(--skills-progress);
+}
+
+.experience-progress::-moz-progress-bar {
+  background-color: var(--experience-progress);
+}
+
+.education-progress::-moz-progress-bar {
+  background-color: var(--education-progress);
+}
+
+.keywords-progress::-moz-progress-bar {
+  background-color: var(--keywords-progress);
+}
+
+/* Animations */
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}

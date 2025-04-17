@@ -32,7 +32,7 @@
 }
 
 .dark-mode{
-  background-color: #353434;
+  background-color: #0c142bb7;
   color: rgb(232, 228, 228);
 }
 
@@ -368,6 +368,187 @@ body {
   margin-right: 0.5rem;
 }
 
+/* Role Switcher Container */
+.role-switcher-container {
+  position: relative;
+  display: inline-block;
+  margin-left: 12px;
+  z-index: 50;
+}
+
+/* Role Dropdown Button */
+.role-dropdown-button {
+  display: flex;
+  align-items: center;
+  padding: 2px 4px;
+  background-color: transparent;
+  border: none;
+  transition: all 0.2s ease;
+}
+
+/* Role Indicator the text is not white */
+
+.role-indicator {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  
+  border-radius: 20px;
+  padding: 4px 12px;
+  border: 1px solid var(--border-color, #e0e0e0);
+  
+  transition: all 0.2s ease;
+  background-color: var(--role-indicator-bg-dark, rgba(133, 132, 132, 0.491));
+  border-color: var(--border-color-dark, #727272);
+  color: var(--text-color-dark, #e0e0e0);
+  box-shadow: 0 2px 5px rgba(82, 81, 81, 0.2);
+
+}
+
+
+
+.role-indicator:hover {
+  background-color: var(--role-indicator-hover-bg, rgba(0, 0, 0, 0.08));
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+}
+
+.dark-mode .role-indicator {
+  background-color: var(--role-indicator-bg-dark, rgba(255, 255, 255, 0.08));
+  border-color: var(--border-color-dark, #333);
+  color: var(--text-color-dark, #e0e0e0);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.dark-mode .role-indicator:hover {
+  background-color: var(--role-indicator-hover-bg-dark, rgba(255, 255, 255, 0.12));
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
+}
+
+/* Role Icon */
+.role-icon {
+  color: var(--role-icon-color, #3d5af1);
+}
+
+/* Dropdown Arrow Animation */
+.dropdown-arrow {
+  margin-left: 4px;
+  transition: transform 0.2s ease;
+}
+
+[aria-expanded="true"] .dropdown-arrow {
+  transform: rotate(180deg);
+}
+
+/* Floating Dropdown Content */
+.role-dropdown-content {
+  position: absolute;
+  width: 220px;
+  padding: 12px 8px;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.08);
+  background-color: var(--dropdown-bg, white);
+  border: 1px solid var(--border-color, #e0e0e0);
+  z-index: 100;
+  transform-origin: top center;
+  animation: floatInDropdown 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  margin-top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.dark-mode .role-dropdown-content {
+  background-color: var(--dropdown-bg-dark, #1e1e1e);
+  border-color: var(--border-color-dark, #333);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3), 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Dropdown Item Styling */
+.role-menu-item {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 8px 12px;
+  gap: 10px;
+  transition: all 0.15s ease;
+  border-radius: 8px;
+}
+
+.role-menu-icon {
+  color: var(--role-icon-color, #3d5af1);
+}
+
+/* Active Role Styles */
+.active-role {
+  background-color: var(--active-role-bg, rgba(61, 90, 241, 0.1)) !important;
+  font-weight: 500;
+  cursor: default;
+}
+
+.active-indicator {
+  margin-left: auto;
+  color: var(--active-role-check, #3d5af1);
+  font-weight: bold;
+}
+
+/* Dropdown Items with Hover Effects */
+.role-dropdown-content button {
+  margin: 4px 0;
+  transition: all 0.2s ease;
+  border-radius: 8px;
+}
+
+.role-dropdown-content button:not(.active-role):hover {
+  background-color: var(--item-hover-bg, rgba(52, 52, 52, 0.04));
+  transform: translateX(2px);
+}
+
+.dark-mode .role-dropdown-content button:not(.active-role):hover {
+  background-color: var(--item-hover-bg-dark, rgba(255, 255, 255, 0.08));
+}
+
+/* Label Styling */
+.role-dropdown-content div:first-child {
+  font-weight: 600;
+  margin-bottom: 8px;
+  padding: 0 12px;
+}
+
+/* Animation for Floating Dropdown */
+@keyframes floatInDropdown {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-12px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0) scale(1);
+  }
+}
+
+/* Dropdown Arrow/Caret for the Floating Effect */
+.role-dropdown-content::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-bottom: 8px solid var(--dropdown-bg, white);
+  z-index: 1;
+}
+
+.dark-mode .role-dropdown-content::before {
+  border-bottom-color: var(--dropdown-bg-dark, #1e1e1e);
+}
+
+
+
 @media ( track  ) {
   .dark-mode-toggle {
     animation:  ease-in-out;
@@ -383,3 +564,5 @@ body {
     grid-template-columns: 1fr;
   }
 }
+
+

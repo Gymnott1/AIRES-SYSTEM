@@ -201,14 +201,7 @@ function ContactPage() {
           </CardContent>
         </Card>
 
-        <div className="footer">
-          <p>
-            ResumeAI - Helping job seekers stand out from the crowd.
-          </p>
-          <p style={{ marginTop: '0.5rem' }}>
-            © 2025 ResumeAI. All rights reserved.
-          </p>
-        </div>
+
       </div>
     </div>
   );

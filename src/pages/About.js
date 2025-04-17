@@ -139,14 +139,7 @@ function About() {
           </CardContent>
         </Card>
 
-        <div className="footer">
-          <p>
-             Powered by advanced natural language processing.
-          </p>
-          <p style={{ marginTop: '0.5rem' }}>
-            © 2025 AIRES. Helping job seekers stand out from the crowd.
-          </p>
-        </div>
+        
       </div>
     </div>
   );

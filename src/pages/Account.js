@@ -409,10 +409,7 @@ function AccountPage() {
           </div>
         </div>
 
-        <div className="footer">
-          <p>AIRES - Helping job seekers stand out from the crowd.</p>
-          <p style={{ marginTop: '0.5rem' }}>© 2025 AIRES. All rights reserved.</p>
-        </div>
+        
       </div>
     </div>
   );
