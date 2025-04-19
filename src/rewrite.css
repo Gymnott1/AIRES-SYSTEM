@@ -465,7 +465,7 @@ textarea:focus,
   .textarea,
   .revision-btn,
   .download-btn {
-    display: none !important;
+    display: flex !important;
   }
   
   .resume-content {
@@ -482,7 +482,7 @@ textarea:focus,
   }
   
   .card-header {
-    display: none;
+    display: flex;
   }
   
   .card-content {
