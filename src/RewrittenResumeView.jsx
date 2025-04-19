@@ -1,7 +1,7 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Button } from './components/ui/button';
-import { FileDown, FileEdit, RotateCw, FileWarning } from 'lucide-react';
+import { FileDown, RotateCw, FileWarning } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from './components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './components/ui/tabs';
 import { Textarea } from './components/ui/textarea';
@@ -22,7 +22,7 @@ const RewrittenResumeView = () => {
   const [previewMode, setPreviewMode] = useState('side-by-side');
   const [feedback, setFeedback] = useState('');
   const [error, setError] = useState(null);
-  const [renderError, setRenderError] = useState(null);
+  
 
   useEffect(() => {
     // Load rewritten content from localStorage
@@ -138,76 +138,78 @@ const RewrittenResumeView = () => {
     navigate('/');
   };
 
-  // Helper functions for rendering markdown content
   const preprocessResumeContent = (content) => {
     if (!content) return '';
+  
+    // Replace escaped newlines with actual newlines
     let processedContent = content.replace(/\\n/g, '\n');
+  
+    // Split content into lines for processing
     const lines = processedContent.split('\n');
+  
+    // Process each line
     const processedLines = lines.map(line => {
       let trimmedLine = line.trim();
+  
+      // Handle headers
       if (trimmedLine.startsWith('#')) {
-        trimmedLine = trimmedLine.replace(/^(#+)(\S)/, '$1 $2');
+        const headerLevel = trimmedLine.match(/^(#+)/)[0].length;
+        trimmedLine = trimmedLine.replace(/^(#+)/, '').trim();
+        trimmedLine = `<h${headerLevel}>${trimmedLine}</h${headerLevel}>`;
       }
+  
+      // Handle bullet points
       if (trimmedLine.startsWith('*') || trimmedLine.startsWith('-')) {
-        trimmedLine = trimmedLine.replace(/^([*-])(\S)/, '$1 $2');
+        trimmedLine = trimmedLine.replace(/^([*-])/, '').trim();
+        trimmedLine = `<li>${trimmedLine}</li>`;
       }
+  
+      // Handle links
       if (trimmedLine.includes('[') && trimmedLine.includes('](')) {
-        trimmedLine = trimmedLine.replace(/\[([^\]]+)\]\s*\(\s*([^)]+?)\s*\)/g, '[$1]($2)');
+        trimmedLine = trimmedLine.replace(/\[([^\]]+)\]\s*\(\s*([^)]+?)\s*\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
       }
+  
+      // Remove any remaining Markdown syntax
+      trimmedLine = trimmedLine.replace(/`/g, '').replace(/\*\*/g, '').replace(/\*/g, '');
+  
       return trimmedLine;
     });
+  
+    // Join the processed lines back into a single string
     return processedLines.join('\n');
   };
+  
+  
 
-  const renderInlineMarkdown = (text, lineKey) => {
-    try {
-      const parts = text.split(/(\*\*.*?\*\*|\[.*?\]\(.*?\))/g);
-      return parts.map((part, index) => {
-        const key = `${lineKey}-inline-${index}`;
-        if (part.startsWith('**') && part.endsWith('**')) {
-          return <strong key={key}>{part.substring(2, part.length - 2)}</strong>;
-        }
-        const linkMatch = part.match(/^\[(.*?)\]\((.*?)\)$/);
-        if (linkMatch) {
-          const [, linkText, linkUrl] = linkMatch;
-          const href = linkUrl.startsWith('http') ? linkUrl : `http://${linkUrl}`;
-          return <a key={key} href={href} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">{linkText}</a>;
-        }
-        return <Fragment key={key}>{part}</Fragment>;
-      });
-    } catch (error) {
-      console.error(`Inline render error: ${error.message}`);
-      return <span key={`${lineKey}-error`} className="text-red-500">[Content Error]</span>;
-    }
-  };
+
 
   const renderResumeContent = (content) => {
     if (!content) return <p className="text-gray-500 italic">Content loading...</p>;
-
+  
     try {
       return content.split('\n').map((line, index) => {
         const key = `line-${index}`;
-
-        if (line.startsWith('# ')) return <h1 key={key} className="text-2xl font-bold my-4">{renderInlineMarkdown(line.substring(2), key)}</h1>;
-        if (line.startsWith('## ')) return <h2 key={key} className="text-xl font-semibold my-3">{renderInlineMarkdown(line.substring(3), key)}</h2>;
-        if (line.startsWith('### ')) return <h3 key={key} className="text-lg font-medium my-2">{renderInlineMarkdown(line.substring(4), key)}</h3>;
-        if (line.startsWith('* ') || line.startsWith('- ')) return <li key={key} className="ml-4">{renderInlineMarkdown(line.substring(2), key)}</li>;
-        if (line.trim() === '') return null;
-
-        return <p key={key} className="my-2">{renderInlineMarkdown(line, key)}</p>;
+  
+        if (line.startsWith('<h1>')) return <h1 key={key} className="text-2xl font-bold mt-4 mb-2">{line.replace(/<\/?h1>/g, '')}</h1>;
+        if (line.startsWith('<h2>')) return <h2 key={key} className="text-xl font-semibold mt-3 mb-2">{line.replace(/<\/?h2>/g, '')}</h2>;
+        if (line.startsWith('<h3>')) return <h3 key={key} className="text-lg font-medium mt-2 mb-1">{line.replace(/<\/?h3>/g, '')}</h3>;
+        if (line.startsWith('<li>')) return <li key={key} className="list-item">{line.replace(/<\/?li>/g, '')}</li>;
+        if (line.trim() === '') return <hr key={key} className="my-4 border-t border-gray-300" />;
+  
+        return <p key={key} className="my-2">{line}</p>;
       });
     } catch (error) {
       console.error("Rendering error:", error);
       return (
-        <Alert variant="destructive" className="mt-4">
-          <FileWarning className="h-4 w-4" />
-          <AlertDescription>
-            Error rendering content: {error.message}
-          </AlertDescription>
-        </Alert>
+        <div className="alert alert-danger mt-4">
+          Error rendering content: {error.message}
+        </div>
       );
     }
   };
+  
+  
+  
 
   return (
     <div className="rewritten-resume-container p-4 md:p-6 space-y-6">
@@ -350,3 +352,5 @@ const RewrittenResumeView = () => {
 };
 
 export default RewrittenResumeView;
+
+

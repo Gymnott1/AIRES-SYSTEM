@@ -723,3 +723,55 @@ svg {
 .preview-controls .markdown-content a:hover {
   text-decoration: underline;
 }
+
+
+.rewritten-resume-container {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+
+.resume-content h1 {
+  font-size: 2em;
+  font-weight: bold;
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+}
+
+.resume-content h2 {
+  font-size: 1.75em;
+  font-weight: semibold;
+  margin-top: 0.75em;
+  margin-bottom: 0.5em;
+}
+
+.resume-content h3 {
+  font-size: 1.5em;
+  font-weight: medium;
+  margin-top: 0.5em;
+  margin-bottom: 0.25em;
+}
+
+.resume-content p {
+  margin: 0.5em 0;
+}
+
+.resume-content .list-item {
+  margin-left: 0; /* Ensure no extra indentation */
+  list-style-type: disc;
+  padding-left: 1em; /* Add padding to align list items */
+}
+
+.resume-content a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.resume-content a:hover {
+  text-decoration: underline;
+}
+
+.resume-content hr {
+  border: 0;
+  border-top: 1px solid #ccc;
+  margin: 2em 0;
+}

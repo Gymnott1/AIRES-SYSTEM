@@ -8,23 +8,48 @@ import { useToast } from './components/ui/use-toast';
 
 const preprocessResumeContent = (content) => {
   if (!content) return '';
+
+  // Replace escaped newlines with actual newlines
   let processedContent = content.replace(/\\n/g, '\n');
+
+  // Split content into lines for processing
   const lines = processedContent.split('\n');
+
+  // Process each line
   const processedLines = lines.map(line => {
     let trimmedLine = line.trim();
+
+    // Handle headers
     if (trimmedLine.startsWith('#')) {
-      trimmedLine = trimmedLine.replace(/^(#+)(\S)/, '$1 $2');
+      const headerLevel = trimmedLine.match(/^(#+)/)[0].length;
+      trimmedLine = trimmedLine.replace(/^(#+)/, '').trim();
+      trimmedLine = `<h${headerLevel}>${trimmedLine}</h${headerLevel}>`;
     }
+
+    // Handle bullet points
     if (trimmedLine.startsWith('*') || trimmedLine.startsWith('-')) {
-      trimmedLine = trimmedLine.replace(/^([*-])(\S)/, '$1 $2');
+      trimmedLine = trimmedLine.replace(/^([*-])/, '').trim();
+      trimmedLine = `<li>${trimmedLine}</li>`;
     }
+
+    // Handle links
     if (trimmedLine.includes('[') && trimmedLine.includes('](')) {
-      trimmedLine = trimmedLine.replace(/\[([^\]]+)\]\s*\(\s*([^)]+?)\s*\)/g, '[$1]($2)');
+      trimmedLine = trimmedLine.replace(/\[([^\]]+)\]\s*\(\s*([^)]+?)\s*\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
     }
+
+    // Remove any remaining Markdown syntax
+    trimmedLine = trimmedLine.replace(/`/g, '').replace(/\*\*/g, '').replace(/\*/g, '');
+
     return trimmedLine;
   });
+
+  // Join the processed lines back into a single string
   return processedLines.join('\n');
 };
+
+
+
+
 
 function ResumeRewrite({ resumeId, originalContent, analysisResults }) {
   const navigate = useNavigate();
@@ -111,7 +136,7 @@ function ResumeRewrite({ resumeId, originalContent, analysisResults }) {
           {loading ? (
             <>
               <RotateCw className="mr-2 h-5 w-5 animate-spin" />
-              Rewriting Resume...
+              Rewriting Resume... Any Details in this page will be lost.
             </>
           ) : (
             <>
@@ -135,3 +160,6 @@ function ResumeRewrite({ resumeId, originalContent, analysisResults }) {
 }
 
 export default ResumeRewrite;
+
+
+
