@@ -1,7 +1,7 @@
-/* RecruiterView.css - Enhanced Professional Styling for the AIRES Candidate Analyzer */
+
 
 :root {
-  /* Light Mode Colors */
+  
   --bg-primary: #f8fafc;
   --card-bg: #ffffff;
   --text-primary: #0f172a;
@@ -29,7 +29,7 @@
   --placeholder-bg: #f1f5f9;
   --placeholder-text: #94a3b8;
 
-  /* Recommendation Tier Colors */
+  
   --tier-strong-bg: rgba(16, 185, 129, 0.1);
   --tier-strong-border: rgba(16, 185, 129, 0.5);
   --tier-strong-text: #10b981;
@@ -43,13 +43,13 @@
   --tier-weak-border: rgba(239, 68, 68, 0.5);
   --tier-weak-text: #ef4444;
 
-  /* Skills Score Colors */
+  
   --skills-progress: #2563eb;
   --experience-progress: #10b981;
   --education-progress: #8b5cf6;
   --keywords-progress: #f59e0b;
 
-  /* Spacing and Layout */
+  
   --space-xs: 0.25rem;
   --space-sm: 0.5rem;
   --space-md: 1rem;
@@ -63,7 +63,7 @@
   --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
 
-/* Dark Mode Variables */
+
 .dark-mode {
   --bg-primary: #0f172a;
   --card-bg: #1e293b;
@@ -92,7 +92,7 @@
   --placeholder-bg: #1e293b;
   --placeholder-text: #94a3b8;
 
-  /* Recommendation Tier Colors - Dark Mode */
+  
   --tier-strong-bg: rgba(16, 185, 129, 0.15);
   --tier-strong-border: rgba(16, 185, 129, 0.5);
   --tier-strong-text: #34d399;
@@ -106,14 +106,14 @@
   --tier-weak-border: rgba(239, 68, 68, 0.5);
   --tier-weak-text: #f87171;
 
-  /* Skills Score Colors - Dark Mode */
+  
   --skills-progress: #3b82f6;
   --experience-progress: #10b981;
   --education-progress: #8b5cf6;
   --keywords-progress: #f59e0b;
 }
 
-/* Global Styles */
+
 .recruiter-view {
   font-family: 'Inter', sans-serif;
   background-color: var(--bg-primary);
@@ -122,7 +122,7 @@
   padding: var(--space-lg);
 }
 
-/* Main Card */
+
 .main-card {
   background-color: var(--card-bg);
   border-radius: var(--border-radius-lg);
@@ -149,7 +149,7 @@
   padding: var(--space-xl);
 }
 
-/* Grid Layout */
+
 .grid-layout {
   display: grid;
   grid-template-columns: 1fr 2fr;
@@ -162,7 +162,7 @@
   }
 }
 
-/* Input Column */
+
 .input-column {
   display: flex;
   flex-direction: column;
@@ -204,7 +204,7 @@
   box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
 }
 
-/* Upload Zone */
+
 .upload-zone {
   position: relative;
   margin-bottom: var(--space-md);
@@ -252,7 +252,7 @@
   margin-top: var(--space-xs);
 }
 
-/* Selected Files List */
+
 .selected-files-list {
   border: 1px solid var(--border-color);
   border-radius: var(--border-radius-md);
@@ -324,7 +324,7 @@
   margin-top: var(--space-xs);
 }
 
-/* Error Message */
+
 .error-message {
   display: flex;
   align-items: center;
@@ -341,7 +341,7 @@
   background-color: rgba(239, 68, 68, 0.15);
 }
 
-/* Analyze Button */
+
 .analyze-button-container {
   margin-top: var(--space-lg);
 }
@@ -368,7 +368,7 @@
   cursor: not-allowed;
 }
 
-/* Results Column */
+
 .results-column {
   min-height: 400px;
   display: flex;
@@ -376,7 +376,7 @@
   gap: var(--space-lg);
 }
 
-/* Loading State */
+
 .loading-indicator {
   display: flex;
   flex-direction: column;
@@ -398,7 +398,7 @@
   overflow: hidden;
 }
 
-/* Placeholder for Results */
+
 .placeholder-results {
   display: flex;
   flex-direction: column;
@@ -418,7 +418,7 @@
   opacity: 0.5;
 }
 
-/* Analysis Results */
+
 .analysis-results {
   display: flex;
   flex-direction: column;
@@ -440,7 +440,7 @@
   margin-bottom: var(--space-md);
 }
 
-/* Ranking Card */
+
 .ranking-card {
   background-color: var(--card-bg);
   border: 1px solid var(--border-color);
@@ -512,7 +512,7 @@
   white-space: nowrap;
 }
 
-/* Comparative Analysis Card */
+
 .comparison-card {
   background-color: var(--card-bg);
   border: 1px solid var(--border-color);
@@ -526,7 +526,7 @@
   color: var(--text-primary);
 }
 
-/* Candidate Grid */
+
 .candidate-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -539,7 +539,7 @@
   }
 }
 
-/* Candidate Cards */
+
 .candidate-card {
   background-color: var(--card-bg);
   border: 1px solid var(--border-color);
@@ -553,7 +553,7 @@
   box-shadow: var(--shadow-lg);
 }
 
-/* Tier-specific styling */
+
 .candidate-card.tier-strong {
   border-left: 4px solid var(--tier-strong-text);
   background-color: var(--tier-strong-bg);
@@ -590,7 +590,7 @@
   margin-bottom: var(--space-sm);
 }
 
-/* Recommendation Badge */
+
 .recommendation-badge {
   display: inline-block;
   padding: 0.25rem 0.5rem;
@@ -625,7 +625,7 @@
   border: 1px solid var(--tier-weak-border);
 }
 
-/* Score Sections */
+
 .score-section {
   display: flex;
   align-items: center;
@@ -674,7 +674,7 @@
   text-align: right;
 }
 
-/* Candidate Content */
+
 .candidate-content {
   padding: var(--space-md);
   display: flex;
@@ -682,7 +682,7 @@
   gap: var(--space-lg);
 }
 
-/* Scores and Radar */
+
 .scores-and-radar {
   display: flex;
   flex-wrap: wrap;
@@ -715,7 +715,7 @@
   color: var(--text-secondary);
 }
 
-/* Radar Chart */
+
 .radar-chart-container {
   flex: 0 0 140px;
   height: 140px;
@@ -750,7 +750,7 @@
   stroke-width: 1.5;
 }
 
-/* Detail Sections */
+
 .detail-section {
   padding: var(--space-md);
   border-radius: var(--border-radius-sm);
@@ -810,7 +810,7 @@
   gap: var(--space-xs);
 }
 
-/* Keywords */
+
 .keyword-columns {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -838,7 +838,7 @@
   color: var(--error-color);
 }
 
-/* Strengths/Weaknesses */
+
 .strengths-weaknesses {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -861,7 +861,7 @@
   gap: var(--space-xs);
 }
 
-/* Red Flags */
+
 .red-flags-section {
   background-color: rgba(239, 68, 68, 0.05);
   border-left: 3px solid var(--error-color);
@@ -871,14 +871,14 @@
   background-color: rgba(239, 68, 68, 0.1);
 }
 
-/* Candidate Summary */
+
 .candidate-summary {
   font-size: 0.875rem;
   line-height: 1.5;
   color: var(--text-primary);
 }
 
-/* Responsive Adjustments */
+
 @media (max-width: 1024px) {
   .recruiter-view {
     padding: var(--space-md);
@@ -922,7 +922,7 @@
   }
 }
 
-/* Utility Classes */
+
 .mt-0 { margin-top: 0; }
 .mb-0 { margin-bottom: 0; }
 .text-sm { font-size: 0.875rem; }
@@ -936,7 +936,7 @@
 .mr-1 { margin-right: var(--space-xs); }
 .mr-2 { margin-right: var(--space-sm); }
 
-/* Fix for Firefox progress bars */
+
 progress::-moz-progress-bar {
   background-color: var(--button-primary);
 }
@@ -957,7 +957,7 @@ progress::-moz-progress-bar {
   background-color: var(--keywords-progress);
 }
 
-/* Animations */
+
 @keyframes pulse {
   0% { opacity: 1; }
   50% { opacity: 0.5; }

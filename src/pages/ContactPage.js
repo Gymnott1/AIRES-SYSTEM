@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
 import { Mail, MapPin, Phone, MessageSquare, Send, Clock } from 'lucide-react';
-import './pages.css'; // We'll create this CSS file
+import './pages.css'; 
 import {  Link } from 'react-router-dom';
 
 
@@ -19,11 +19,11 @@ function ContactPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission logic here
+    
     console.log('Form submitted:', formData);
-    // You would typically send this data to your backend
+    
     alert('Thank you for your message! We will get back to you soon.');
-    // Reset form
+    
     setFormData({ name: '', email: '', subject: '', message: '' });
   };
 
@@ -124,7 +124,7 @@ function ContactPage() {
                   Kenya
                 </p>
                 <div className="map-container">
-                  {/* Placeholder for map - in a real app, you would embed a Google Map or similar here */}
+                  {}
                   <div className="map-placeholder">
                     <MapPin size={36} />
                     <p>Map location</p>

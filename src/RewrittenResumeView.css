@@ -4,7 +4,7 @@
   color: var(--text-dark);
 }
 
-/* Resume rewrite container */
+
 .resume-rewrite-container {
   max-width: 100%;
   margin: 0 auto;
@@ -30,12 +30,12 @@
   }
 }
 
-/* Responsive typography */
+
 h1, h2, .card-title {
   word-break: break-word;
 }
 
-/* Card styles */
+
 .card {
   border-radius: 0.5rem;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
@@ -51,7 +51,7 @@ h1, h2, .card-title {
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
 }
 
-/* Card Header */
+
 .card-header {
   padding: 0.75rem 1rem;
   border-bottom: 1px solid var(--border-light);
@@ -83,7 +83,7 @@ h1, h2, .card-title {
   color: var(--text-dark);
 }
 
-/* Card Content */
+
 .card-content {
   padding: 1rem;
 }
@@ -94,7 +94,7 @@ h1, h2, .card-title {
   }
 }
 
-/* Button styles */
+
 .button {
   display: inline-flex;
   align-items: center;
@@ -149,7 +149,7 @@ h1, h2, .card-title {
   cursor: not-allowed;
 }
 
-/* Tabs styles */
+
 .tabs {
   width: 100%;
 }
@@ -194,7 +194,7 @@ h1, h2, .card-title {
   background-color: #1a202c;
 }
 
-/* Textarea styles */
+
 .textarea {
   width: 100%;
   border-radius: 0.375rem;
@@ -219,7 +219,7 @@ h1, h2, .card-title {
   box-shadow: 0 0 0 2px rgba(2, 132, 199, 0.2);
 }
 
-/* Alert styles */
+
 .alert {
   padding: 0.75rem;
   border-radius: 0.375rem;
@@ -261,7 +261,7 @@ h1, h2, .card-title {
   }
 }
 
-/* Role indicator styles */
+
 .role-indicator {
   display: inline-flex;
   align-items: center;
@@ -276,7 +276,7 @@ h1, h2, .card-title {
   background-color: var(--role-indicator-bg-dark, rgba(255, 255, 255, 0.08));
 }
 
-/* Markdown preview styles */
+
 .markdown-preview {
   font-size: 0.875rem;
   line-height: 1.5;
@@ -361,7 +361,7 @@ h1, h2, .card-title {
   color: #38bdf8;
 }
 
-/* Side by side layout */
+
 .grid-cols-1 {
   display: grid;
   grid-template-columns: 1fr;
@@ -374,7 +374,7 @@ h1, h2, .card-title {
   }
 }
 
-/* PDF iframe container heights */
+
 .h-70vh, .h-80vh {
   height: 50vh;
 }
@@ -395,7 +395,7 @@ h1, h2, .card-title {
   }
 }
 
-/* Specific button styles */
+
 .download-btn {
   background-color: #10b981;
   color: white;
@@ -430,7 +430,7 @@ h1, h2, .card-title {
   background-color: #6d28d9;
 }
 
-/* Custom iframe styles */
+
 iframe {
   border: none;
   border-radius: 0.25rem;
@@ -440,10 +440,10 @@ iframe {
 }
 
 .dark iframe {
-  background-color: #f8fafc; /* Keep PDF background light for readability */
+  background-color: #f8fafc; 
 }
 
-/* Responsive spacing */
+
 .space-y-6 > * + * {
   margin-top: 1rem;
 }
@@ -454,7 +454,7 @@ iframe {
   }
 }
 
-/* Make buttons more responsive on small screens */
+
 .flex.justify-between,
 .flex.justify-end {
   flex-wrap: wrap;
@@ -473,7 +473,7 @@ iframe {
   }
 }
 
-/* Animation for spinner */
+
 @keyframes spin {
   from {
     transform: rotate(0deg);
@@ -487,7 +487,7 @@ iframe {
   animation: spin 1s linear infinite;
 }
 
-/* Toast notification styling */
+
 .toast-container {
   position: fixed;
   bottom: 0.5rem;
@@ -568,7 +568,7 @@ iframe {
   border-left: 3px solid var(--primary);
 }
 
-/* Overflow handling for small screens */
+
 @media (max-width: 640px) {
   .overflow-x-auto {
     overflow-x: auto;
@@ -579,13 +579,13 @@ iframe {
     -webkit-overflow-scrolling: touch;
   }
   
-  /* Make text readable on small screens */
+  
   .markdown-preview {
     word-break: break-word;
   }
 }
 
-/* Fix for textarea display on small screens */
+
 .h-40 {
   height: 6rem;
 }
@@ -596,7 +596,7 @@ iframe {
   }
 }
 
-/* Ensure lucide icons scale properly */
+
 svg {
   width: 1rem;
   height: 1rem;
@@ -610,7 +610,7 @@ svg {
   }
 }
 
-/* Responsive headings */
+
 .text-xl {
   font-size: 1.125rem;
   line-height: 1.75rem;
@@ -623,7 +623,7 @@ svg {
   }
 }
 
-/* Fix button text wrapping on mobile */
+
 @media (max-width: 480px) {
   .download-btn, .revision-btn {
     width: 100%;
@@ -631,7 +631,7 @@ svg {
   }
 }
 
-/* Enhanced dark mode for better readability */
+
 @media (prefers-color-scheme: dark) {
   :root {
     color-scheme: dark;
@@ -642,7 +642,7 @@ svg {
   }
 }
 
-/* Print styles for PDF download preview */
+
 @media print {
   .resume-rewrite-container {
     padding: 0;
@@ -756,9 +756,9 @@ svg {
 }
 
 .resume-content .list-item {
-  margin-left: 0; /* Ensure no extra indentation */
+  margin-left: 0; 
   list-style-type: disc;
-  padding-left: 1em; /* Add padding to align list items */
+  padding-left: 1em; 
 }
 
 .resume-content a {

@@ -18,7 +18,7 @@
 }
 
 
-/* Card styles */
+
 .Card {
   display: flex;
   flex-direction: column;
@@ -31,7 +31,7 @@
   color: white;
 }
 
-/* File upload area */
+
 .label {
   display: flex;
   flex-direction: column;
@@ -50,7 +50,7 @@
   transition: all 0.3s ease;
 }
 
-/* File input styling */
+
 input[type="file"] {
   display: flex;
   border: none;
@@ -74,7 +74,7 @@ input[type="file"]:hover::before {
   background-color: #4CAF50;
 }
 
-/* Container styles */
+
 .container {
   display: flex;
   flex-direction: column;
@@ -85,7 +85,7 @@ input[type="file"]:hover::before {
   box-sizing: border-box;
 }
 
-/* Button styles */
+
 .scanbtn {
   display: inline-flex;
   align-items: center;
@@ -168,7 +168,7 @@ input[type="file"]:hover::before {
   max-width: 300px;
 }
 
-/* Search styling */
+
 .search {
   display: flex;
   align-items: center;
@@ -179,7 +179,7 @@ input[type="file"]:hover::before {
   cursor: pointer;
 }
 
-/* Analysis container */
+
 .analysis-container {
   display: flex;
   flex-direction: column;
@@ -210,7 +210,7 @@ input[type="file"]:hover::before {
   font-family: 'Roboto', sans-serif;
 }
 
-/* Key insights */
+
 .key-insights {
   display: flex;
   flex-direction: column;
@@ -226,7 +226,7 @@ input[type="file"]:hover::before {
   font-family: 'Roboto', sans-serif;
 }
 
-/* List styling */
+
 .list {
   list-style: none;
   padding: 0;
@@ -264,7 +264,7 @@ input[type="file"]:hover::before {
   word-break: break-word;
 }
 
-/* Chat container */
+
 .chart-container {
   margin-top: 20px;
   border: 1px solid #ddd;
@@ -288,7 +288,7 @@ input[type="file"]:hover::before {
   box-sizing: border-box;
 }
 
-/* Chat messages */
+
 .flexchat-c {
   display: flex;
   align-items: flex-start;
@@ -326,7 +326,7 @@ input[type="file"]:hover::before {
   color: #41464b;
 }
 
-/* Chat form */
+
 .form {
   display: flex;
   align-items: center;
@@ -347,7 +347,7 @@ input[type="file"]:hover::before {
   min-width: 80px;
 }
 
-/* Warning message */
+
 .warn {
   color: red;
   font-size: 14px;
@@ -356,7 +356,7 @@ input[type="file"]:hover::before {
   width: 100%;
 }
 
-/* Profile avatar */
+
 .profile-avatar-placeholder {
   width: 50px;
   height: 50px;
@@ -370,7 +370,7 @@ input[type="file"]:hover::before {
   flex-shrink: 0;
 }
 
-/* Dark mode styling */
+
 body.dark-mode .container .label {
   background-color: rgba(223, 218, 218, 0);
   border-color: #f5f5f5;
@@ -441,7 +441,7 @@ body.dark-mode ::-webkit-scrollbar-thumb {
   background-color: #555;
 }
 
-/* Scrollbar styling */
+
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -461,7 +461,7 @@ body.dark-mode ::-webkit-scrollbar-thumb {
   background: #555;
 }
 
-/* Media Queries for Responsiveness */
+
 @media screen and (max-width: 1200px) {
   .App-content {
     width: 95%;

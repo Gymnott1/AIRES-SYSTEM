@@ -22,11 +22,11 @@ const SmartResumeScanner = () => {
   const handleScan = async () => {
     setScanning(true);
     
-    // Simulated API call to OpenAI
-    // In reality, you would:
-    // 1. Convert the PDF to text
-    // 2. Send to OpenAI API
-    // 3. Process the response
+    
+    
+    
+    
+    
     setTimeout(() => {
       setResults({
         skills: 85,
@@ -49,7 +49,7 @@ const SmartResumeScanner = () => {
 
     setMessages([...messages, { type: 'user', content: newMessage }]);
     
-    // Simulated AI response
+    
     setTimeout(() => {
       setMessages(prev => [...prev, {
         type: 'ai',
@@ -67,7 +67,7 @@ const SmartResumeScanner = () => {
           <CardTitle className="text-2xl font-bold text-center">Smart Resume Scanner</CardTitle>
         </CardHeader>
         <CardContent className="space-y-6">
-          {/* Upload Section */}
+          {}
           <div className="flex flex-col items-center space-y-4">
             <div className="w-full max-w-md">
               <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed rounded-lg cursor-pointer hover:bg-gray-50">
@@ -96,7 +96,7 @@ const SmartResumeScanner = () => {
             </Button>
           </div>
 
-          {/* Results Section */}
+          {}
           {results && (
             <div className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -157,7 +157,7 @@ const SmartResumeScanner = () => {
             </div>
           )}
 
-          {/* Chat Section */}
+          {}
           {showChat && (
             <div className="mt-6 border rounded-lg p-4">
               <div className="h-64 overflow-y-auto mb-4 space-y-4">

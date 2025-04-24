@@ -31,10 +31,10 @@ import {
 } from "./components/ui/dropdown-menu";
 import RewrittenResumeView from './RewrittenResumeView';
 
-// API Base URL
+
 const API_URL = 'http://localhost:8000/api';
 
-// Helper Component for Protected Routes
+
 const ProtectedRoute = ({ children }) => {
   const isAuthenticated = !!localStorage.getItem('authToken');
   const navigate = useNavigate();
@@ -48,7 +48,7 @@ const ProtectedRoute = ({ children }) => {
   return isAuthenticated ? children : null;
 };
 
-// Main App Component
+
 function App() {
   const [uploadedResume, setUploadedResume] = useState(null);
   const [resumeContent, setResumeContent] = useState(null);
@@ -62,7 +62,7 @@ function App() {
   const { toast } = useToast();
   const navigate = useNavigate();
 
-  // Authentication Check
+  
   useEffect(() => {
     const checkAuth = () => {
       const token = localStorage.getItem('authToken');
@@ -88,7 +88,7 @@ function App() {
     localStorage.setItem('dark-mode', newMode);
   };
 
-  // Handle Role Change (Update UI First, API Second)
+  
   const handleRoleChange = (newRole) => {
     const currentRole = userRole;
     if (newRole === currentRole || isUpdatingRole) {
@@ -105,15 +105,15 @@ function App() {
     }
 
     console.log(`Switching UI role to: ${newRole}`);
-    // Update UI State & Storage Immediately
+    
     setUserRole(newRole);
     localStorage.setItem('userRole', newRole);
     setUploadedResume(null);
     setResumeContent(null);
     setSideMenuOpen(false);
 
-    // Asynchronous API Call to Update Backend
-    setIsUpdatingRole(true); // Start API loading indicator
+    
+    setIsUpdatingRole(true); 
     const updateBackendRole = async () => {
       try {
         console.log(`Attempting to update backend role to: ${newRole}`);
@@ -121,9 +121,9 @@ function App() {
         const response = await axios.post(`${API_URL}/account/role/`, { role: newRole }, { headers });
         console.log("Backend role update response:", response.data);
 
-        // Update user info in localStorage if backend provides it
+        
         if (response.data.user) {
-          const backendRole = response.data.user.role || newRole; // Prefer backend response
+          const backendRole = response.data.user.role || newRole; 
           const userToStore = {
             id: response.data.user.id, username: response.data.user.username,
             email: response.data.user.email, role: backendRole
@@ -136,7 +136,7 @@ function App() {
         if (error.response) {
           if (error.response.status === 401) {
             errorMsg = "Authentication failed while syncing role. Please log in again.";
-            // Clear local storage and state, redirect
+            
             localStorage.removeItem('authToken');
             localStorage.removeItem('user');
             localStorage.removeItem('userRole');
@@ -149,13 +149,13 @@ function App() {
         }
         toast({ title: "Role Sync Failed", description: errorMsg, variant: "destructive" });
       } finally {
-        setIsUpdatingRole(false); // Stop API loading indicator
+        setIsUpdatingRole(false); 
       }
     };
-    updateBackendRole(); // Call the async function
+    updateBackendRole(); 
   };
 
-  // Other Effects (Dark Mode, Screen Size, Click Outside)
+  
   useEffect(() => {
     if (darkMode) document.body.classList.add('dark-mode'); else document.body.classList.remove('dark-mode');
   }, [darkMode]);
@@ -180,18 +180,18 @@ function App() {
 
   const handleSideMenu = () => setSideMenuOpen(!sideMenuOpen);
 
-  // Job Seeker View Component
+  
   const JobSeekerView = () => {
     const [uploadedResumeJS, setUploadedResumeJS] = useState(uploadedResume);
     const [resumeContentJS, setResumeContentJS] = useState(resumeContent);
-    const darkModeJS = darkMode; // Inherit dark mode
+    const darkModeJS = darkMode; 
 
     const handleUploadedSuccessJS = (data) => {
       setUploadedResumeJS(data);
       setResumeContentJS(data.content || "Resume content not available");
     };
 
-    // Clear state when component unmounts (due to role change/key change)
+    
     useEffect(() => {
       return () => {
         setUploadedResumeJS(null);
@@ -338,7 +338,7 @@ function App() {
       )
     }
   />
-  {/* New Route for Rewritten Resume View */}
+  {}
   <Route 
     path="/rewritten-resume/:resumeId" 
     element={<ProtectedRoute><RewrittenResumeView /></ProtectedRoute>} 
@@ -359,7 +359,7 @@ function App() {
   );
 }
 
-// AppWrapper to provide Router and Toast context
+
 function AppWrapper() {
   return (
     <ToastProvider>

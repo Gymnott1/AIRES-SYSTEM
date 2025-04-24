@@ -1,11 +1,11 @@
-// src/Analysis.jsx
+
 
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { Button } from './components/ui/button';
-import { Scan, MessageSquare, BotMessageSquare, BookOpenCheck , FileText, SquareUser, Loader2 } from 'lucide-react'; // Added Loader2
+import { Scan, MessageSquare, BotMessageSquare, BookOpenCheck , FileText, SquareUser, Loader2 } from 'lucide-react'; 
 import { Progress } from './components/ui/progress';
-// Removed toast import if not used elsewhere in this simplified version
+
 
 function Analysis({ resumeId }) {
   const [results, setResults] = useState(null);
@@ -16,14 +16,14 @@ function Analysis({ resumeId }) {
   const [conversationList, setConversationList] = useState([]);
   const [showConvoDropdown, setShowConvoDropdown] = useState(false);
 
-  const token = localStorage.getItem('authToken'); // Check auth token
+  const token = localStorage.getItem('authToken'); 
 
-  // --- Corrected handleAnalysis ---
+  
   const handleAnalysis = async () => {
     setLoading(true);
-    setResults(null); // Clear previous results
+    setResults(null); 
     try {
-      // Add Authorization header if user is logged in
+      
       const headers = {};
       if (token) {
           headers['Authorization'] = `Token ${token}`;
@@ -32,24 +32,24 @@ function Analysis({ resumeId }) {
       const response = await axios.post(
         'http://localhost:8000/api/analyze_resume/',
         { resume_id: resumeId },
-        { headers } // Pass headers
+        { headers } 
       );
 
-      // --- FIX: Directly use response.data ---
-      // response.data is the parsed JSON object returned by the backend view
+      
+      
       const analysisData = response.data;
 
-      // --- Keep original assumption that data structure is correct ---
-      // If backend guarantees the structure, this is simpler:
+      
+      
       if (analysisData) {
           console.log("Received analysis results:", analysisData);
-          setResults(analysisData); // Set the state with the received JSON object
+          setResults(analysisData); 
       } else {
-          // Handle case where backend might return empty success (unlikely but possible)
+          
            console.error("Received empty or invalid analysis data structure:", analysisData);
           throw new Error("Received empty analysis data from the server.");
       }
-      // --- END FIX ---
+      
 
     } catch (error) {
       console.error("Analysis error", error);
@@ -62,18 +62,18 @@ function Analysis({ resumeId }) {
       } else {
            errorMsg = error.message;
       }
-      setResults(null); // Clear results on error
-      alert("Analysis failed: " + errorMsg); // Use original alert for feedback
+      setResults(null); 
+      alert("Analysis failed: " + errorMsg); 
     } finally {
         setLoading(false);
     }
   };
-  // --- End Corrected handleAnalysis ---
+  
 
-  // --- REMOVED extractFirstJsonObject function - no longer needed ---
+  
 
 
-  // Fetch conversation list if user is logged in
+  
   const fetchConversations = useCallback(async () => {
     if (!token) return;
     try {
@@ -83,7 +83,7 @@ function Analysis({ resumeId }) {
       setConversationList(response.data);
     } catch (error) {
       console.error("Failed to fetch conversation list:", error);
-      // Optionally alert here if needed: alert("Could not fetch chat history.");
+      
     }
   }, [token]);
 
@@ -94,7 +94,7 @@ function Analysis({ resumeId }) {
   }, [token, fetchConversations]);
 
 
-  // Load conversation messages for a given resume
+  
   const loadConversation = async (selectedResumeId) => {
     try {
       const headers = token ? { Authorization: `Token ${token}` } : {};
@@ -103,15 +103,15 @@ function Analysis({ resumeId }) {
         headers
       });
       setMessages(response.data);
-      setShowChat(true); // Show chat when history is loaded
-      setShowConvoDropdown(false); // Close dropdown
+      setShowChat(true); 
+      setShowConvoDropdown(false); 
     } catch (error) {
       console.error("Failed to load conversation:", error);
       alert("Failed to load conversation.");
     }
   };
 
-  // Handle Chat Submission (remains the same as your provided version)
+  
   const handleChatSubmit = async (e) => {
     e.preventDefault();
     if (!newMessage.trim()) return;
@@ -128,12 +128,12 @@ function Analysis({ resumeId }) {
       const response = await axios.post('http://localhost:8000/api/chat/', {
         resume_id: resumeId,
         message: messageToSend,
-        conversation: messages.slice(-10) // Example: send last 10 messages
+        conversation: messages.slice(-10) 
       }, { headers });
 
       let aiReply = response.data.reply || "Sorry, I couldn't process that.";
 
-      // Basic sanitization from your version
+      
       aiReply = aiReply.replace(/[^\w\s.,:;!?'"()-]/g, '');
       aiReply = aiReply.replace(/\s+/g, ' ').trim();
       aiReply = aiReply.replace(/(\d+\.\s)/g, '<br />$1');
@@ -160,7 +160,7 @@ function Analysis({ resumeId }) {
         ...prev,
         { type: 'ai', content: `Sorry, an error occurred: ${errorMsg}` }
       ]);
-      // No toast here in this simplified version
+      
     }
   };
 
@@ -176,23 +176,23 @@ function Analysis({ resumeId }) {
           {loading ? (
              <> <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Analyzing... </>
           ) : (
-             <> Analyze Resume <Scan className="ml-2 h-4 w-4 search" /> </> // Added back search class if needed
+             <> Analyze Resume <Scan className="ml-2 h-4 w-4 search" /> </> 
           )}
         </Button>
       </div>
 
-      {/* Conditional Rendering based on 'results' state */}
+      {}
       {results && (
         <div className="analysis-container">
-          {/* Analysis Breakdown */}
+          {}
           <div>
             <h3>AI Analysis Breakdown:</h3>
-            {/* Assume results.scores exists if results is truthy */}
+            {}
             <div className="analysis-scores">
                 <div>
                     <div className="score-label">
                     <span>Skills</span>
-                    {/* Use optional chaining ?. for safer access */}
+                    {}
                     <span>{results.scores?.skills ?? 'N/A'}%</span>
                     </div>
                     <Progress value={results.scores?.skills ?? 0} className="progress-bar" />
@@ -221,12 +221,12 @@ function Analysis({ resumeId }) {
             </div>
           </div>
 
-          {/* Key Insights */}
-          {/* Assume results.key_insights exists and is array */}
+          {}
+          {}
           <div className="key-insights">
             <h3>Key Insights:</h3>
             <ul className="list">
-              {(results.key_insights || []).map((insight, idx) => ( // Default to empty array
+              {(results.key_insights || []).map((insight, idx) => ( 
                 <li key={idx}>
                   <FileText className="filetext" />
                   <span>{insight}</span>
@@ -235,12 +235,12 @@ function Analysis({ resumeId }) {
             </ul>
           </div>
 
-          {/* Improvement Suggestions */}
-          {/* Assume results.improvement_suggestions exists and is array */}
+          {}
+          {}
           <div className="improvement-suggestions">
             <h3>Improvement Suggestions:</h3>
             <ul className="list">
-              {(results.improvement_suggestions || []).map((suggestion, idx) => ( // Default to empty array
+              {(results.improvement_suggestions || []).map((suggestion, idx) => ( 
                 <li key={idx}>
                   <FileText className="filetext" />
                   <span>{suggestion}</span>
@@ -250,16 +250,16 @@ function Analysis({ resumeId }) {
           </div>
 
 
-          {/* Chat Button */}
+          {}
           <Button onClick={() => setShowChat(true)} className="scanbtn">
-            <span> Chat with AI <MessageSquare className="ml-2 h-4 w-4 messageCircle" /> </span> {/* Added back messageCircle class */}
+            <span> Chat with AI <MessageSquare className="ml-2 h-4 w-4 messageCircle" /> </span> {}
           </Button>
 
-          {/* Chat History */}
+          {}
           {token && (
             <div className="conversation-dropdown">
               <Button className="scanbtn" onClick={() => setShowConvoDropdown(!showConvoDropdown)} >
-                <span> Chat History <BookOpenCheck className="ml-2 h-4 w-4 chevron-down" /> </span> {/* Added back chevron-down class */}
+                <span> Chat History <BookOpenCheck className="ml-2 h-4 w-4 chevron-down" /> </span> {}
               </Button>
               {showConvoDropdown && (
                 <ul className="conversation-list">
@@ -277,10 +277,10 @@ function Analysis({ resumeId }) {
             </div>
           )}
         </div>
-      )} {/* End results conditional rendering */}
+      )} {}
 
 
-        {/* Chat UI */}
+        {}
       {showChat && (
         <div className="chart-container">
           <div className="chat-box">
@@ -295,13 +295,13 @@ function Analysis({ resumeId }) {
               </div>
             ))}
           </div>
-          <form onSubmit={handleChatSubmit} className="chat-input-form form"> {/* Added back form class */}
+          <form onSubmit={handleChatSubmit} className="chat-input-form form"> {}
             <input
               type="text"
               value={newMessage}
               onChange={(e) => setNewMessage(e.target.value)}
               placeholder="Ask about your resume..."
-              className="chat-input" // Kept specific class if needed
+              className="chat-input" 
             />
             <Button className="scanbtn sendbtn" type="submit">Send</Button>
           </form>
@@ -309,7 +309,7 @@ function Analysis({ resumeId }) {
       )}
 
 
-    </div> // End scanbtndiv
+    </div> 
   );
 }
 

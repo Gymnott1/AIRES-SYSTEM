@@ -1,13 +1,13 @@
-/* General Recruiter View Styles */
+
 .recruiter-view {
-    max-width: 1000px; /* Adjust as needed */
+    max-width: 1000px; 
     margin: 2rem auto;
 }
 
 .recruiter-content {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem; /* Space between sections */
+    gap: 1.5rem; 
 }
 
 .input-section {
@@ -19,15 +19,15 @@
 .input-label {
     font-weight: 600;
     font-size: 0.95rem;
-    color: var(--foreground); /* Use CSS variables if you have them */
+    color: var(--foreground); 
 }
 
 .textarea-input {
-    min-height: 120px; /* Ensure decent height */
+    min-height: 120px; 
 }
 
 .file-input {
-    /* Add some basic styling if needed */
+    
     border: 1px dashed hsl(var(--border));
     padding: 1rem;
     border-radius: var(--radius);
@@ -65,7 +65,7 @@
 }
 
 .remove-file-btn {
-    margin-left: auto; /* Push button to the right */
+    margin-left: auto; 
     color: hsl(var(--destructive));
     padding: 2px;
     height: auto;
@@ -77,7 +77,7 @@
 
 .analyze-button-container {
     display: flex;
-    justify-content: center; /* Center the button */
+    justify-content: center; 
     margin-top: 1rem;
 }
 
@@ -89,7 +89,7 @@
 .recruiter-error {
     background-color: hsla(var(--destructive), 0.1);
     border: 1px solid hsl(var(--destructive));
-    color: hsl(var(--destructive-foreground)); /* Use foreground color for destructive */
+    color: hsl(var(--destructive-foreground)); 
     padding: 0.75rem;
     border-radius: var(--radius);
     display: flex;
@@ -99,7 +99,7 @@
 }
 
 
-/* Results Styling */
+
 .loading-indicator {
     display: flex;
     flex-direction: column;
@@ -108,7 +108,7 @@
     padding: 2rem;
     text-align: center;
     color: var(--muted-foreground);
-    min-height: 150px; /* Ensure space while loading */
+    min-height: 150px; 
 }
 
 .recruiter-results-container {
@@ -128,7 +128,7 @@
 }
 
 .ranking-card, .comparison-card, .summary-card {
-    background-color: hsl(var(--card)); /* Match card background */
+    background-color: hsl(var(--card)); 
 }
 
 .ranking-list {
@@ -149,7 +149,7 @@
 
 .rank-number {
     font-weight: 600;
-    min-width: 25px; /* Align numbers */
+    min-width: 25px; 
     color: hsl(var(--primary));
 }
 
@@ -165,7 +165,7 @@
 
 .candidate-details-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Responsive grid */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
     gap: 1rem;
 }
 
@@ -175,18 +175,18 @@
      flex-direction: column;
 }
 .candidate-card .CardHeader {
-    padding-bottom: 0.5rem; /* Reduce padding below header */
+    padding-bottom: 0.5rem; 
 }
 .candidate-card .CardContent {
     padding-top: 0.5rem;
-    flex-grow: 1; /* Allow content to take available space */
+    flex-grow: 1; 
 }
 
 
 .candidate-title {
     display: flex;
     align-items: center;
-    font-size: 1.05rem !important; /* Override default shadcn size if needed */
+    font-size: 1.05rem !important; 
 }
 
 
@@ -201,11 +201,11 @@
     margin-bottom: 0.2rem;
 }
 .candidate-progress {
-    height: 8px; /* Make progress bar slimmer */
+    height: 8px; 
 }
 
 .candidate-summary {
-     color: var(--muted-foreground); /* Muted text for summary */
+     color: var(--muted-foreground); 
 }
 
 .details-section {
@@ -218,21 +218,21 @@
     color: var(--muted-foreground);
 }
 .detail-item strong {
-    color: var(--foreground); /* Make detail label stronger */
+    color: var(--foreground); 
     font-weight: 500;
 }
 
 
-/* Dark Mode Adjustments (if needed, shadcn might handle most) */
+
 .dark-mode .recruiter-error {
-    background-color: hsla(var(--destructive) / 0.2); /* Adjust alpha */
+    background-color: hsla(var(--destructive) / 0.2); 
 }
 
 .dark-mode .rank-score {
-    background-color: hsla(var(--muted) / 0.5); /* Slightly darker muted */
+    background-color: hsla(var(--muted) / 0.5); 
 }
 
-/* Role Indicator */
+
 .role-indicator {
     font-size: 0.8rem;
     color: hsl(var(--muted-foreground));
@@ -240,14 +240,14 @@
     font-style: italic;
 }
 
-/* Role Switcher specific */
+
 .role-switcher-btn {
-    gap: 0.5rem; /* Space between icon and text */
+    gap: 0.5rem; 
 }
 
 .dropdown_item_group {
     padding: 0.5rem;
-    border-bottom: 1px solid hsl(var(--border)); /* Separator */
+    border-bottom: 1px solid hsl(var(--border)); 
 }
 .dropdown_label {
     font-size: 0.75rem;
@@ -261,5 +261,5 @@
 .role_switch_item.disabled {
     opacity: 0.6;
     cursor: not-allowed;
-    background-color: hsl(var(--muted)); /* Indicate disabled */
+    background-color: hsl(var(--muted)); 
 }

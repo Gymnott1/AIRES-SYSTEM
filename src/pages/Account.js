@@ -5,7 +5,7 @@ import { User, CircleUser, Lock, Edit, LogOut, Trash2, Bell, Shield, Save } from
 import './pages.css';
 
 function AccountPage() {
-  const [user, setUser] = useState(null); // Will store user details from DB
+  const [user, setUser] = useState(null); 
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
@@ -22,7 +22,7 @@ function AccountPage() {
     securityAlerts: true
   });
 
-  // Fetch user details from the backend on mount
+  
   useEffect(() => {
     const fetchUser = async () => {
       try {
@@ -31,7 +31,7 @@ function AccountPage() {
           headers: { Authorization: `Token ${token}` }
         });
         setUser(response.data);
-        // Pre-populate the form with details from the DB
+        
         setFormData({
           name: response.data.name,
           email: response.data.email,
@@ -122,10 +122,10 @@ function AccountPage() {
           headers: { Authorization: `Token ${token}` }
         });
         alert('Your account has been deleted.');
-        // Optionally remove token from localStorage and redirect
+        
         localStorage.removeItem('authToken');
         localStorage.removeItem('user');
-        window.location.href = '/signup'; // or homepage/login page
+        window.location.href = '/signup'; 
       } catch (error) {
         console.error('Account deletion failed:', error);
         alert('Account deletion failed.');
@@ -134,7 +134,7 @@ function AccountPage() {
   };
   
 
-  // Helper to get the initial letter for placeholder
+  
   const getInitial = () => {
     return user && user.name ? user.name.charAt(0).toUpperCase() : '';
   };

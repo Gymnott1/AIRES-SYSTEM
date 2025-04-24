@@ -571,7 +571,7 @@ body.dark-mode .resume-content::-webkit-scrollbar-thumb:hover {
   background: #9ca3af;
 }
 
-/* Markdown Content */
+
 body.dark-mode .markdown-content h1 {
   color: #f9fafb; 
   border-bottom-color: #4b5563; 

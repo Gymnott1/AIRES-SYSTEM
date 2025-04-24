@@ -42,7 +42,7 @@ body.dark-mode .page-subtitle {
   color: #d1d5db;
 }
 
-/* Card styles */
+
 .custom-card {
   background-color: white;
   border-radius: 0.5rem;
@@ -385,7 +385,7 @@ body.dark-mode .card-header-purple {
   }
 }
 
-/* Form styles */
+
 .form-group {
   margin-bottom: 1.5rem;
 }
@@ -473,7 +473,7 @@ body.dark-mode .submit-button:hover {
   margin-right: 0.5rem;
 }
 
-/* Map styles */
+
 .map-container {
   margin-top: 1rem;
   height: 150px;
@@ -496,7 +496,7 @@ body.dark-mode .map-placeholder {
   color: #d1d5db;
 }
 
-/* Contact info styles */
+
 .contact-info-text {
   line-height: 1.6;
   color: #4b5563;
@@ -604,7 +604,7 @@ body.dark-mode .contact-link:hover {
   color: #bfdbfe;
 }
 
-/* CTA card styles */
+
 .cta-card {
   border-left: 4px solid #111827;
 }
@@ -649,7 +649,7 @@ body.dark-mode .cta-button:hover {
   background-color: #5a67d8;
 }
 
-/* Footer styles */
+
 .footer {
   margin-top: 4rem;
   text-align: center;
@@ -661,9 +661,9 @@ body.dark-mode .footer {
   color: #9ca3af;
 }
 
-/* account-page.css */
 
-/* Base styles with light/dark variants */
+
+
 .account-container {
   min-height: 100vh;
   background: linear-gradient(to bottom, #f0f5ff, #e0e8ff);
@@ -680,7 +680,7 @@ body.dark-mode .account-container {
   margin: 0 auto;
 }
 
-/* Page header section */
+
 .page-header {
   text-align: center;
   margin-bottom: 3rem;
@@ -709,7 +709,7 @@ body.dark-mode .page-subtitle {
   color: #d1d5db;
 }
 
-/* Card styles */
+
 .custom-card {
   background-color: white;
   border-radius: 0.5rem;
@@ -733,7 +733,7 @@ body.dark-mode .custom-card:hover {
   box-shadow: 0 10px 15px rgba(0, 0, 0, 0.4);
 }
 
-/* Card headers */
+
 .card-header-primary,
 .card-header-green,
 .card-header-purple,
@@ -786,7 +786,7 @@ body.dark-mode .card-header-danger {
   padding: 1.5rem;
 }
 
-/* Account page specific styles */
+
 .account-grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -799,7 +799,7 @@ body.dark-mode .card-header-danger {
   }
 }
 
-/* Profile styles */
+
 .profile-container {
   display: flex;
   flex-direction: column;

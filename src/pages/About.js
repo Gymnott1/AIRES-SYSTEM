@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
 import { FileUp, MessageSquare, GraduationCap, Award } from 'lucide-react';
-import './pages.css'; // Import the CSS file
+import './pages.css'; 
 import { Link } from 'react-router-dom';
 
 

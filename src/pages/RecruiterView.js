@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useNavigate, Link } from 'react-router-dom'; // Import Link and useNavigate
+import { useNavigate, Link } from 'react-router-dom'; 
 import { Button } from '../components/ui/button';
 import { Textarea } from '../components/ui/textarea';
 import { Input } from '../components/ui/input';
@@ -8,13 +8,13 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../co
 import {
   Upload, Loader2, AlertCircle, FileText, XCircle, Award, Briefcase, BookOpen,
   CheckCircle, ListChecks, AlertTriangle, ThumbsUp, ThumbsDown, Star, ShieldCheck, ShieldAlert,
-  LogIn // Import LogIn icon
+  LogIn 
 } from 'lucide-react';
 import { Progress } from '../components/ui/progress';
 import './RecruiterView.css';
-// Removed cn import as it wasn't used
 
-// API Base URL
+
+
 const API_URL = 'http://localhost:8000/api';
 
 const VALIDATION_STATUS = {
@@ -31,61 +31,61 @@ function RecruiterView() {
   const [analysisResults, setAnalysisResults] = useState(null);
   const [loadingAnalysis, setLoadingAnalysis] = useState(false);
   const [overallError, setOverallError] = useState(null);
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // Add login state
+  const [isLoggedIn, setIsLoggedIn] = useState(false); 
   const MAX_FILES = 5;
-  const navigate = useNavigate(); // Hook for navigation
+  const navigate = useNavigate(); 
 
-  // --- Authentication Check Effect ---
+  
   useEffect(() => {
     const checkAuth = () => {
         const token = localStorage.getItem('authToken');
         setIsLoggedIn(!!token);
         if (!token) {
-            // Optionally clear state if user logs out while viewing
+            
             setValidatedFiles([]);
             setAnalysisResults(null);
             setJobDescription('');
         }
     };
-    checkAuth(); // Initial check
-    window.addEventListener('storage', checkAuth); // Listen for storage changes
+    checkAuth(); 
+    window.addEventListener('storage', checkAuth); 
     return () => window.removeEventListener('storage', checkAuth);
   }, []);
 
-  // Monitor state changes (optional debug)
+  
   useEffect(() => {
     console.log("State updated - validatedFiles:", validatedFiles);
   }, [validatedFiles]);
 
-  // --- Helper for 401 ---
+  
   const handleUnauthorized = (errorSource) => {
       console.warn(`Unauthorized (401) detected during ${errorSource}.`);
       setOverallError("Your session has expired or is invalid. Please log in again.");
       localStorage.removeItem('authToken');
       localStorage.removeItem('user');
       setIsLoggedIn(false);
-      // Optionally navigate to login
-      // navigate('/login');
+      
+      
   };
 
-  // --- Validate Single File ---
+  
   const validateSingleFile = async (fileId, file) => {
     console.log(`Starting validation for file: ${file.name} (ID: ${fileId})`);
 
-    // --- Get Auth Token ---
+    
     const token = localStorage.getItem('authToken');
     if (!token) {
         handleUnauthorized("file validation");
-        // Update file status to error locally
+        
         setValidatedFiles(prevFiles =>
             prevFiles.map(vf =>
                 vf.id === fileId ? { ...vf, status: VALIDATION_STATUS.ERROR, message: 'Login required' } : vf
             )
         );
-        return; // Stop if not logged in
+        return; 
     }
 
-    // Update the file status to VALIDATING
+    
     setValidatedFiles(prevFiles =>
       prevFiles.map(vf =>
         vf.id === fileId ? { ...vf, status: VALIDATION_STATUS.VALIDATING, message: '' } : vf
@@ -94,24 +94,24 @@ function RecruiterView() {
 
     const formData = new FormData();
     formData.append('file', file);
-    formData.append('validate_only', 'true'); // Uses UploadResumeView which checks auth
+    formData.append('validate_only', 'true'); 
 
-    // --- Construct Headers ---
+    
     const headers = {
-        // 'Content-Type': 'multipart/form-data', // Axios sets this for FormData
+        
         'Authorization': `Token ${token}`
     };
 
     try {
-      // --- Send request with headers ---
-      const response = await axios.post(`${API_URL}/upload_resume/`, formData, { headers }); // Use correct API endpoint
+      
+      const response = await axios.post(`${API_URL}/upload_resume/`, formData, { headers }); 
       const { is_resume, details } = response.data;
       const status = is_resume ? VALIDATION_STATUS.VALID : VALIDATION_STATUS.INVALID;
       const message = is_resume ? 'Verified as Resume' : (details?.details?.error || details?.error || "File doesn't appear to be a resume.");
 
       console.log(`Validation completed for ${file.name}: Status=${status}, Message=${message}`);
 
-      // Update state with new status
+      
       setValidatedFiles(prevFiles => {
         const updatedFiles = prevFiles.map(vf =>
           vf.id === fileId ? { ...vf, status, message } : vf
@@ -123,10 +123,10 @@ function RecruiterView() {
       console.error("Validation API error for file:", file.name, error);
       let errorMsg = "Validation check failed.";
       if (error.response) {
-        // --- Check for 401 ---
+        
         if (error.response.status === 401) {
             handleUnauthorized("file validation");
-            errorMsg = 'Authentication failed.'; // Set specific message
+            errorMsg = 'Authentication failed.'; 
         } else {
             errorMsg = error.response.data.error || error.response.data.details || errorMsg;
         }
@@ -134,7 +134,7 @@ function RecruiterView() {
         errorMsg = "Network error during validation.";
       }
 
-      // Update state to ERROR
+      
       setValidatedFiles(prevFiles =>
         prevFiles.map(vf =>
           vf.id === fileId ? { ...vf, status: VALIDATION_STATUS.ERROR, message: errorMsg } : vf
@@ -143,9 +143,9 @@ function RecruiterView() {
     }
   };
 
-  // --- Handle File Change ---
+  
   const handleFileChange = (event) => {
-     // --- Check Login First ---
+     
     if (!isLoggedIn) {
         setOverallError("Please log in to upload resumes.");
         return;
@@ -190,23 +190,23 @@ function RecruiterView() {
 
     setOverallError(currentError);
 
-    // Start validation for new files
+    
     newFilesToValidate.forEach(vf => {
-        validateSingleFile(vf.id, vf.file); // This now checks auth internally
+        validateSingleFile(vf.id, vf.file); 
     });
 
-    event.target.value = null; // Clear file input
+    event.target.value = null; 
   };
 
-  // --- Remove File ---
+  
   const removeFile = (idToRemove) => {
     setValidatedFiles(prevFiles => prevFiles.filter(vf => vf.id !== idToRemove));
-    setOverallError(null); // Clear errors when user modifies selection
+    setOverallError(null); 
   };
 
-  // --- Handle Analyze Candidates ---
+  
   const handleAnalyzeCandidates = async () => {
-     // --- Check Login ---
+     
     const token = localStorage.getItem('authToken');
     if (!token) {
         handleUnauthorized("analysis");
@@ -233,7 +233,7 @@ function RecruiterView() {
      const invalidOrErrorFiles = validatedFiles.filter(vf => vf.status === VALIDATION_STATUS.INVALID || vf.status === VALIDATION_STATUS.ERROR);
      if (invalidOrErrorFiles.length > 0) {
          console.warn(`Analyzing only ${filesToAnalyze.length} valid resumes. Ignoring ${invalidOrErrorFiles.length} invalid/error files.`);
-         // Optionally add this warning to overallError if desired
+         
      }
 
     setLoadingAnalysis(true);
@@ -246,18 +246,18 @@ function RecruiterView() {
       formData.append('resumes', vf.file);
     });
 
-    // --- Construct Headers ---
+    
     const headers = {
-        // 'Content-Type': 'multipart/form-data', // Axios sets this
+        
         'Authorization': `Token ${token}`
     };
 
     try {
-      // --- Send request with headers ---
+      
       const response = await axios.post(`${API_URL}/recruiter_analyze/`, formData, { headers });
       console.log("Recruiter Analysis Response:", response.data);
 
-      // Process response (same logic as before)
+      
       if (response.data && Array.isArray(response.data.candidate_analysis) && Array.isArray(response.data.ranking)) {
         if (response.data.processing_warnings) {
             setOverallError(`Note: ${response.data.processing_warnings.join(' ')}`);
@@ -271,10 +271,10 @@ function RecruiterView() {
       console.error('Recruiter analysis error:', err);
       let errorMsg = "An unexpected error occurred during analysis.";
        if (err.response) {
-            // --- Check for 401 ---
+            
             if (err.response.status === 401) {
                 handleUnauthorized("analysis");
-                errorMsg = 'Authentication failed.'; // Set specific message
+                errorMsg = 'Authentication failed.'; 
             } else {
                 errorMsg = err.response.data?.error || err.response.data?.details || `Server error: ${err.response.status}`;
             }
@@ -290,8 +290,8 @@ function RecruiterView() {
     }
   };
 
-  // --- Rendering Helpers (getSafeFileName, getCategoryIcon, generateRadarPoints, renderListWithIcon) ---
-  // (These remain the same as before)
+  
+  
   const getSafeFileName = (identifier) => {
     if (typeof identifier === 'string') {
       const parts = identifier.split(/[\\/]/);
@@ -343,18 +343,18 @@ function RecruiterView() {
   };
 
 
-  // Calculate button state based on current state
+  
   const hasValidFiles = validatedFiles.some(vf => vf.status === VALIDATION_STATUS.VALID);
   const hasPendingFiles = validatedFiles.some(vf => vf.status === VALIDATION_STATUS.PENDING || vf.status === VALIDATION_STATUS.VALIDATING);
 
-  // --- Disable analysis button if not logged in, loading, no description, no valid files, or files pending ---
+  
   const disableAnalyzeButton = !isLoggedIn ||
                                loadingAnalysis ||
                                !jobDescription.trim() ||
                                !hasValidFiles ||
                                hasPendingFiles;
 
-  // --- Render Login Prompt if not logged in ---
+  
   if (!isLoggedIn) {
       return (
           <div className="recruiter-view recruiter-login-prompt">
@@ -377,7 +377,7 @@ function RecruiterView() {
       );
   }
 
-  // --- Render Main Recruiter View if logged in ---
+  
   return (
     <div className="recruiter-view">
       <Card className="main-card">
@@ -390,15 +390,15 @@ function RecruiterView() {
 
         <CardContent className="card-content">
           <div className="grid-layout">
-            {/* Input Column */}
+            {}
             <div className="input-column">
-              {/* Job Description Input */}
+              {}
               <div className="input-section">
                  <label htmlFor="jobDescription" className="input-label">Job Description / Requirements</label>
                  <Textarea id="jobDescription" placeholder="Paste the job description here..." value={jobDescription} onChange={(e) => setJobDescription(e.target.value)} rows={8} className="textarea-input" disabled={loadingAnalysis || !isLoggedIn} />
               </div>
 
-              {/* Resume Upload Input */}
+              {}
               <div className="input-section">
                  <label htmlFor="resumeFiles" className="input-label">Upload Resumes (Max {MAX_FILES} PDFs)</label>
                  <div className="upload-zone">
@@ -410,14 +410,14 @@ function RecruiterView() {
                    </label>
                  </div>
 
-                {/* File List & Validation */}
+                {}
                  {validatedFiles.length > 0 && (
                    <div className="selected-files-list validation-list">
                      <p className="files-header">Selected Resumes & Validation Status:</p>
                      <ul>
                        {validatedFiles.map((vf) => (
                          <li key={vf.id} className={`selected-file-item validation-item status-${vf.status}`}>
-                           {/* Validation Icon */}
+                           {}
                            <span className="validation-status-icon">
                              {vf.status === VALIDATION_STATUS.VALIDATING && <Loader2 size={16} className="animate-spin text-blue-500" />}
                              {vf.status === VALIDATION_STATUS.VALID && <ShieldCheck size={16} className="text-green-600" />}
@@ -425,17 +425,17 @@ function RecruiterView() {
                              {vf.status === VALIDATION_STATUS.ERROR && <AlertCircle size={16} className="text-red-600" />}
                              {vf.status === VALIDATION_STATUS.PENDING && <FileText size={16} className="text-gray-400" />}
                            </span>
-                           {/* File Name & Size */}
+                           {}
                            <span className="file-name" title={vf.file.name}>{vf.file.name}</span>
                            <span className="file-size">({(vf.file.size / 1024).toFixed(1)} KB)</span>
-                           {/* Validation Message */}
+                           {}
                            {(vf.status === VALIDATION_STATUS.INVALID || vf.status === VALIDATION_STATUS.ERROR) && (
                                <span className="validation-message" title={vf.message}>{vf.message}</span>
                            )}
                            {vf.status === VALIDATION_STATUS.VALID && (
                                 <span className="validation-message valid">{vf.message || 'Verified'}</span>
                            )}
-                           {/* Remove Button */}
+                           {}
                            <Button variant="ghost" size="sm" onClick={() => removeFile(vf.id)} disabled={loadingAnalysis} className="remove-file-btn" aria-label={`Remove ${vf.file.name}`}>
                              <XCircle size={16} />
                            </Button>
@@ -446,7 +446,7 @@ function RecruiterView() {
                  )}
                </div>
 
-               {/* Overall Error Message */}
+               {}
                {overallError && (
                  <div className="error-message">
                    <AlertCircle size={18} />
@@ -454,11 +454,11 @@ function RecruiterView() {
                  </div>
                )}
 
-              {/* Analyze Button */}
+              {}
                <div className="analyze-button-container">
                  <Button
                     onClick={handleAnalyzeCandidates}
-                    disabled={disableAnalyzeButton} // Use calculated disabled state
+                    disabled={disableAnalyzeButton} 
                     className="analyze-button">
                    {loadingAnalysis ? (
                      <> <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Analyzing Candidates... </>
@@ -469,24 +469,24 @@ function RecruiterView() {
                    )}
                  </Button>
                </div>
-             </div> {/* End Input Column */}
+             </div> {}
 
-            {/* Results Column */}
+            {}
              <div className="results-column">
                {loadingAnalysis && ( <div className="loading-indicator"> <Loader2 className="mr-2 h-6 w-6 animate-spin" /> <p>Analyzing candidate data...</p> </div> )}
                {!loadingAnalysis && !analysisResults && !overallError && ( <div className="placeholder-results"> <FileText size={48} className="placeholder-icon" /> <p>Analysis results will appear here.</p> </div> )}
 
-                {/* Analysis Results Display */}
+                {}
                {analysisResults && !loadingAnalysis && (
                  <div className="analysis-results">
                     <h3 className="results-title">Candidate Analysis Results</h3>
-                    {/* Ranking Card */}
+                    {}
                     <Card className="ranking-card">
                       <CardHeader>
                         <CardTitle className="text-lg">Candidate Ranking (Best Match First)</CardTitle>
                       </CardHeader>
                       <CardContent>
-                        {/* Ranking Visualization (Same as before) */}
+                        {}
                         <div className="ranking-visualization">
                           {analysisResults.ranking?.length > 0 ? (
                               analysisResults.ranking.map((rankedIdentifier, index) => {
@@ -494,7 +494,7 @@ function RecruiterView() {
                                       c => getSafeFileName(c.resume_identifier) === getSafeFileName(rankedIdentifier)
                                   );
                                   const matchScore = candidate?.match_score ?? 0;
-                                  return ( /* ... rank bar JSX ... */
+                                  return ( 
                                       <div key={index} className="rank-bar-container" title={`Overall Match: ${matchScore}%`}>
                                           <div className="rank-info">
                                               <span className="rank-number">{index + 1}</span>
@@ -518,7 +518,7 @@ function RecruiterView() {
                       </CardContent>
                     </Card>
 
-                    {/* Comparison Card (Same as before) */}
+                    {}
                     {analysisResults.comparative_analysis && (
                       <Card className="comparison-card">
                         <CardHeader>
@@ -530,40 +530,40 @@ function RecruiterView() {
                       </Card>
                     )}
 
-                    {/* Individual Candidate Breakdown (Same structure as before) */}
+                    {}
                     <h3 className="results-subtitle">Individual Candidate Breakdown</h3>
                     <div className="candidate-grid">
                       {analysisResults.candidate_analysis?.map((candidate, index) => (
                         <Card key={index} className={`candidate-card tier-${(candidate.recommendation_tier || 'default').toLowerCase().replace(' ', '-')}`}>
-                          {/* Card Header (Same as before) */}
+                          {}
                            <CardHeader className="candidate-header">
                              <CardTitle className="candidate-title">
                                <FileText size={18} className="mr-2" />
                                {getSafeFileName(candidate.resume_identifier)}
                              </CardTitle>
-                             {candidate.recommendation_tier && ( /* ... badge ... */
+                             {candidate.recommendation_tier && ( 
                                  <span className={`recommendation-badge tier-${candidate.recommendation_tier.toLowerCase().replace(' ', '-')}`}>
                                      {candidate.recommendation_tier}
                                  </span>
                              )}
-                             {candidate.match_score !== undefined && ( /* ... overall score progress ... */
+                             {candidate.match_score !== undefined && ( 
                                <div className="score-section overall-score-section" title={`Overall Match Score: ${candidate.match_score}%`}>
                                    <Progress value={candidate.match_score} className="score-progress overall-progress" />
                                    <span className='score-percent-label'>{candidate.match_score}%</span>
                                </div>
                              )}
                            </CardHeader>
-                           {/* Card Content (Same as before) */}
+                           {}
                            <CardContent className="candidate-content">
-                             {/* Scores and Radar (Same as before) */}
+                             {}
                              <div className="scores-and-radar">
-                                 {/* Structured Scores */}
+                                 {}
                                  <div className="structured-scores">
                                      <h4 className="detail-heading">Score Breakdown</h4>
                                      {['skills', 'experience', 'education', 'keywords'].map(category => {
                                          const scoreKey = `${category}_score`;
                                          const score = candidate.details?.[scoreKey];
-                                         return score !== undefined ? ( /* ... score item JSX ... */
+                                         return score !== undefined ? ( 
                                              <div key={category} className="structured-score-item" title={`${category.charAt(0).toUpperCase() + category.slice(1)} Match: ${score}%`}>
                                                  {getCategoryIcon(category)}
                                                  <span className='structured-score-label'>{category.charAt(0).toUpperCase() + category.slice(1)}</span>
@@ -573,8 +573,8 @@ function RecruiterView() {
                                          ) : null;
                                      })}
                                  </div>
-                                 {/* Radar Chart */}
-                                 {candidate.details && ( /* ... radar chart SVG ... */
+                                 {}
+                                 {candidate.details && ( 
                                    <div className="radar-chart-container" title="Visual representation of score breakdown">
                                        <svg viewBox="0 0 100 100" className="radar-chart">
                                            {[40, 30, 20, 10].map(r => <circle key={r} cx="50" cy="50" r={r} className="radar-grid-circle" />)}
@@ -596,7 +596,7 @@ function RecruiterView() {
                                    </div>
                                   )}
                              </div>
-                             {/* Keyword Match (Same as before) */}
+                             {}
                               <div className="detail-section">
                                  <h4 className="detail-heading"><ListChecks size={16} className="inline-block mr-1" /> Keyword Match</h4>
                                  <div className='keyword-columns'>
@@ -610,7 +610,7 @@ function RecruiterView() {
                                      </div>
                                  </div>
                              </div>
-                             {/* Analysis Summary (Strengths/Weaknesses) (Same as before) */}
+                             {}
                              <div className="detail-section">
                                  <h4 className="detail-heading">Analysis Summary</h4>
                                  <div className="strengths-weaknesses">
@@ -624,14 +624,14 @@ function RecruiterView() {
                                      </div>
                                  </div>
                              </div>
-                             {/* Red Flags (Same as before) */}
-                             {candidate.details?.red_flags && candidate.details.red_flags.length > 0 && ( /* ... red flags section ... */
+                             {}
+                             {candidate.details?.red_flags && candidate.details.red_flags.length > 0 && ( 
                                  <div className="detail-section red-flags-section">
                                      <h4 className="detail-heading"><AlertTriangle size={16} className="inline-block mr-1 text-red-600" /> Potential Red Flags</h4>
                                      {renderListWithIcon(candidate.details.red_flags, <AlertTriangle />, 'red-flags-list', 'icon-danger')}
                                  </div>
                              )}
-                             {/* AI Overall Summary (Same as before) */}
+                             {}
                               <div className="detail-section">
                                    <h4 className="detail-heading">AI Overall Summary:</h4>
                                    <p className="candidate-summary">{candidate.summary || 'No summary provided.'}</p>
@@ -642,8 +642,8 @@ function RecruiterView() {
                     </div>
                   </div>
                )}
-             </div> {/* End Results Column */}
-           </div> {/* End Grid Layout */}
+             </div> {}
+           </div> {}
          </CardContent>
        </Card>
      </div>

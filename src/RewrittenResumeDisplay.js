@@ -17,7 +17,7 @@ const renderInlineMarkdown = (text, lineKey) => {
       const linkMatch = part.match(/^\[(.*?)\]\((.*?)\)$/);
       if (linkMatch) {
         const [, linkText, linkUrl] = linkMatch;
-        const href = linkUrl.startsWith('http') ? linkUrl : `http://${linkUrl}`;
+        const href = linkUrl.startsWith('http') ? linkUrl : `http:
         return <a key={key} href={href} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">{linkText}</a>;
       }
       return <React.Fragment key={key}>{part}</React.Fragment>;
@@ -32,7 +32,7 @@ const renderResumeContent = (content) => {
   if (!content) return <p className="text-gray-500 italic">Content loading...</p>;
 
   try {
-    console.log("Rendering content:", content); // Debug log
+    console.log("Rendering content:", content); 
     return content.split('\n').map((line, index) => {
       const key = `line-${index}`;
 
