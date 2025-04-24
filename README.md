@@ -12,6 +12,29 @@ This web application allows users to upload their CVs and scan them using AI. Th
 - **Frontend:** React
 - **Backend:** Django
 - **Database:** PostgreSQL
+
+# DOWNLOAD OF OF THE PDFS
+![AIRES PDF](public/improved_resume.pdf)
+![AIRES PDF](public/AIRESR.pdf)
+
+## Prerequisites
+
+Before you begin, make sure you have the following installed on your machine:
+- [Git](https://git-scm.com/downloads)
+- [Node.js](https://nodejs.org/) (includes npm)
+- [Python 3.8+](https://www.python.org/downloads/)
+- [PostgreSQL](https://www.postgresql.org/download/) (or you can use a managed instance)
+
+## Getting Started
+
+### 1. Clone the Repository
+
+Open your terminal and run the following commands to clone the repository:
+
+```bash
+git clone https://github.com/yourusername/your-repo.git
+cd your-repo
+```
 ## Some of the screenshots from frontend 
 ![AIRES-IMAGE](public/AIRES.png)
 ![AIRES IMAGE](public/AIRES (2).png)
@@ -38,28 +61,6 @@ This web application allows users to upload their CVs and scan them using AI. Th
 ![AIRES IMAGE](public/AIRES (23).png)
 ![AIRES IMAGE](public/AIRES (24).png)
 
-# DOWNLOAD OF OF THE PDFS
-![AIRES PDF](public/improved_resume.pdf)
-![AIRES PDF](public/AIRESR.pdf)
-
-## Prerequisites
-
-Before you begin, make sure you have the following installed on your machine:
-- [Git](https://git-scm.com/downloads)
-- [Node.js](https://nodejs.org/) (includes npm)
-- [Python 3.8+](https://www.python.org/downloads/)
-- [PostgreSQL](https://www.postgresql.org/download/) (or you can use a managed instance)
-
-## Getting Started
-
-### 1. Clone the Repository
-
-Open your terminal and run the following commands to clone the repository:
-
-```bash
-git clone https://github.com/yourusername/your-repo.git
-cd your-repo
-```
 
 ### 2. Set Up the Backend (Django)
 
