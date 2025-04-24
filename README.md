@@ -13,9 +13,7 @@ This web application allows users to upload their CVs and scan them using AI. Th
 - **Backend:** Django
 - **Database:** PostgreSQL
 
-# DOWNLOAD OF OF THE PDFS
-![AIRES PDF](public/improved_resume.pdf)
-![AIRES PDF](public/AIRESR.pdf)
+
 
 ## Prerequisites
 
@@ -37,30 +35,30 @@ cd your-repo
 ```
 ## Some of the screenshots from frontend 
 ![AIRES-IMAGE](public/AIRES.png)
-![AIRES IMAGE](public/AIRES (2).png)
-![AIRES IMAGE](public/AIRES (3).png)
-![AIRES IMAGE](public/AIRES (4).png)
-![AIRES IMAGE](public/AIRES (5).png)
-![AIRES IMAGE](public/AIRES (6).png)
-![AIRES IMAGE](public/AIRES (7).png)
-![AIRES IMAGE](public/AIRES (8).png)
-![AIRES IMAGE](public/AIRES (9).png)
-![AIRES IMAGE](public/AIRES (10).png)
-![AIRES IMAGE](public/AIRES (11).png)
-![AIRES IMAGE](public/AIRES (12).png)
-![AIRES IMAGE](public/AIRES (13).png)
-![AIRES IMAGE](public/AIRES (14).png)
-![AIRES IMAGE](public/AIRES (15).png)
-![AIRES IMAGE](public/AIRES (16).png)
-![AIRES IMAGE](public/AIRES (17).png)
-![AIRES IMAGE](public/AIRES (18).png)
-![AIRES IMAGE](public/AIRES (19).png)
-![AIRES IMAGE](public/AIRES (20).png)
-![AIRES IMAGE](public/AIRES (21).png)
-![AIRES IMAGE](public/AIRES (22).png)
-![AIRES IMAGE](public/AIRES (23).png)
-![AIRES IMAGE](public/AIRES (24).png)
+![AIRES-IMAGE](public/AIRES2.png)
+![AIRES-IMAGE](public/AIRES3.png)
+![AIRES-IMAGE](public/AIRES4.png)
+![AIRES-IMAGE](public/AIRES5.png)
+![AIRES-IMAGE](public/AIRES6.png)
+![AIRES-IMAGE](public/AIRES7.png)
+![AIRES-IMAGE](public/AIRES8.png)
+![AIRES-IMAGE](public/AIRES9.png)
+![AIRES-IMAGE](public/AIRES10.png)
+![AIRES-IMAGE](public/AIRES11.png)
+![AIRES-IMAGE](public/AIRES12.png)
+![AIRES-IMAGE](public/AIRES13.png)
+![AIRES-IMAGE](public/AIRES14.png)
+![AIRES-IMAGE](public/AIRES15.png)
+![AIRES-IMAGE](public/AIRES16.png)
+![AIRES-IMAGE](public/AIRES17.png)
+![AIRES-IMAGE](public/AIRES18.png)
+![AIRES-IMAGE](public/AIRES19.png)
+![AIRES-IMAGE](public/AIRES20.png)
 
+
+# DOWNLOAD OF OF THE PDFS
+![AIRES-PDF](public/improved_resume.pdf)
+![AIRES-PDF](public/AIRESR.pdf)
 
 ### 2. Set Up the Backend (Django)
 
