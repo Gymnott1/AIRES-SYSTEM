@@ -58,6 +58,8 @@ cd your-repo
 
 # DOWNLOAD OF OF THE PDFS
 ![AIRES-PDF](public/improved_resume.pdf)
+
+# Recruiter
 ![AIRES-PDF](public/AIRESR.pdf)
 
 ### 2. Set Up the Backend (Django)
