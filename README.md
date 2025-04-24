@@ -13,7 +13,7 @@ This web application allows users to upload their CVs and scan them using AI. Th
 - **Backend:** Django
 - **Database:** PostgreSQL
 ## Some of the screenshots from frontend 
-![AIRES IMAGE](public/AIRES.png)
+![AIRES-IMAGE](public/AIRES.png)
 ![AIRES IMAGE](public/AIRES (2).png)
 ![AIRES IMAGE](public/AIRES (3).png)
 ![AIRES IMAGE](public/AIRES (4).png)
