@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useNavigate, Link } from 'react-router-dom'; 
+import {  Link } from 'react-router-dom'; 
 import { Button } from '../components/ui/button';
 import { Textarea } from '../components/ui/textarea';
 import { Input } from '../components/ui/input';
@@ -33,7 +33,7 @@ function RecruiterView() {
   const [overallError, setOverallError] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false); 
   const MAX_FILES = 5;
-  const navigate = useNavigate(); 
+
 
   
   useEffect(() => {
@@ -390,15 +390,15 @@ function RecruiterView() {
 
         <CardContent className="card-content">
           <div className="grid-layout">
-            {}
+            
             <div className="input-column">
-              {}
+              
               <div className="input-section">
                  <label htmlFor="jobDescription" className="input-label">Job Description / Requirements</label>
                  <Textarea id="jobDescription" placeholder="Paste the job description here..." value={jobDescription} onChange={(e) => setJobDescription(e.target.value)} rows={8} className="textarea-input" disabled={loadingAnalysis || !isLoggedIn} />
               </div>
 
-              {}
+              
               <div className="input-section">
                  <label htmlFor="resumeFiles" className="input-label">Upload Resumes (Max {MAX_FILES} PDFs)</label>
                  <div className="upload-zone">
@@ -410,14 +410,14 @@ function RecruiterView() {
                    </label>
                  </div>
 
-                {}
+                
                  {validatedFiles.length > 0 && (
                    <div className="selected-files-list validation-list">
                      <p className="files-header">Selected Resumes & Validation Status:</p>
                      <ul>
                        {validatedFiles.map((vf) => (
                          <li key={vf.id} className={`selected-file-item validation-item status-${vf.status}`}>
-                           {}
+                           
                            <span className="validation-status-icon">
                              {vf.status === VALIDATION_STATUS.VALIDATING && <Loader2 size={16} className="animate-spin text-blue-500" />}
                              {vf.status === VALIDATION_STATUS.VALID && <ShieldCheck size={16} className="text-green-600" />}
@@ -425,17 +425,17 @@ function RecruiterView() {
                              {vf.status === VALIDATION_STATUS.ERROR && <AlertCircle size={16} className="text-red-600" />}
                              {vf.status === VALIDATION_STATUS.PENDING && <FileText size={16} className="text-gray-400" />}
                            </span>
-                           {}
+                           
                            <span className="file-name" title={vf.file.name}>{vf.file.name}</span>
                            <span className="file-size">({(vf.file.size / 1024).toFixed(1)} KB)</span>
-                           {}
+                           
                            {(vf.status === VALIDATION_STATUS.INVALID || vf.status === VALIDATION_STATUS.ERROR) && (
                                <span className="validation-message" title={vf.message}>{vf.message}</span>
                            )}
                            {vf.status === VALIDATION_STATUS.VALID && (
                                 <span className="validation-message valid">{vf.message || 'Verified'}</span>
                            )}
-                           {}
+                           
                            <Button variant="ghost" size="sm" onClick={() => removeFile(vf.id)} disabled={loadingAnalysis} className="remove-file-btn" aria-label={`Remove ${vf.file.name}`}>
                              <XCircle size={16} />
                            </Button>
@@ -446,7 +446,7 @@ function RecruiterView() {
                  )}
                </div>
 
-               {}
+               
                {overallError && (
                  <div className="error-message">
                    <AlertCircle size={18} />
@@ -454,7 +454,7 @@ function RecruiterView() {
                  </div>
                )}
 
-              {}
+              
                <div className="analyze-button-container">
                  <Button
                     onClick={handleAnalyzeCandidates}
@@ -469,24 +469,24 @@ function RecruiterView() {
                    )}
                  </Button>
                </div>
-             </div> {}
+             </div> 
 
-            {}
+            
              <div className="results-column">
                {loadingAnalysis && ( <div className="loading-indicator"> <Loader2 className="mr-2 h-6 w-6 animate-spin" /> <p>Analyzing candidate data...</p> </div> )}
                {!loadingAnalysis && !analysisResults && !overallError && ( <div className="placeholder-results"> <FileText size={48} className="placeholder-icon" /> <p>Analysis results will appear here.</p> </div> )}
 
-                {}
+                
                {analysisResults && !loadingAnalysis && (
                  <div className="analysis-results">
                     <h3 className="results-title">Candidate Analysis Results</h3>
-                    {}
+                    
                     <Card className="ranking-card">
                       <CardHeader>
                         <CardTitle className="text-lg">Candidate Ranking (Best Match First)</CardTitle>
                       </CardHeader>
                       <CardContent>
-                        {}
+                        
                         <div className="ranking-visualization">
                           {analysisResults.ranking?.length > 0 ? (
                               analysisResults.ranking.map((rankedIdentifier, index) => {
@@ -518,7 +518,7 @@ function RecruiterView() {
                       </CardContent>
                     </Card>
 
-                    {}
+                    
                     {analysisResults.comparative_analysis && (
                       <Card className="comparison-card">
                         <CardHeader>
@@ -530,12 +530,12 @@ function RecruiterView() {
                       </Card>
                     )}
 
-                    {}
+                    
                     <h3 className="results-subtitle">Individual Candidate Breakdown</h3>
                     <div className="candidate-grid">
                       {analysisResults.candidate_analysis?.map((candidate, index) => (
                         <Card key={index} className={`candidate-card tier-${(candidate.recommendation_tier || 'default').toLowerCase().replace(' ', '-')}`}>
-                          {}
+                          
                            <CardHeader className="candidate-header">
                              <CardTitle className="candidate-title">
                                <FileText size={18} className="mr-2" />
@@ -553,11 +553,11 @@ function RecruiterView() {
                                </div>
                              )}
                            </CardHeader>
-                           {}
+                           
                            <CardContent className="candidate-content">
-                             {}
+                             
                              <div className="scores-and-radar">
-                                 {}
+                                 
                                  <div className="structured-scores">
                                      <h4 className="detail-heading">Score Breakdown</h4>
                                      {['skills', 'experience', 'education', 'keywords'].map(category => {
@@ -573,7 +573,7 @@ function RecruiterView() {
                                          ) : null;
                                      })}
                                  </div>
-                                 {}
+                                 
                                  {candidate.details && ( 
                                    <div className="radar-chart-container" title="Visual representation of score breakdown">
                                        <svg viewBox="0 0 100 100" className="radar-chart">
@@ -596,7 +596,7 @@ function RecruiterView() {
                                    </div>
                                   )}
                              </div>
-                             {}
+                             
                               <div className="detail-section">
                                  <h4 className="detail-heading"><ListChecks size={16} className="inline-block mr-1" /> Keyword Match</h4>
                                  <div className='keyword-columns'>
@@ -610,7 +610,7 @@ function RecruiterView() {
                                      </div>
                                  </div>
                              </div>
-                             {}
+                             
                              <div className="detail-section">
                                  <h4 className="detail-heading">Analysis Summary</h4>
                                  <div className="strengths-weaknesses">
@@ -624,14 +624,14 @@ function RecruiterView() {
                                      </div>
                                  </div>
                              </div>
-                             {}
+                             
                              {candidate.details?.red_flags && candidate.details.red_flags.length > 0 && ( 
                                  <div className="detail-section red-flags-section">
                                      <h4 className="detail-heading"><AlertTriangle size={16} className="inline-block mr-1 text-red-600" /> Potential Red Flags</h4>
                                      {renderListWithIcon(candidate.details.red_flags, <AlertTriangle />, 'red-flags-list', 'icon-danger')}
                                  </div>
                              )}
-                             {}
+                             
                               <div className="detail-section">
                                    <h4 className="detail-heading">AI Overall Summary:</h4>
                                    <p className="candidate-summary">{candidate.summary || 'No summary provided.'}</p>
@@ -642,8 +642,8 @@ function RecruiterView() {
                     </div>
                   </div>
                )}
-             </div> {}
-           </div> {}
+             </div> 
+           </div> 
          </CardContent>
        </Card>
      </div>

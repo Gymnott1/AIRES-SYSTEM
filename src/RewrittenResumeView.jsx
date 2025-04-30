@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Button } from './components/ui/button';
 import { FileDown, RotateCw, FileWarning } from 'lucide-react';
@@ -25,7 +25,7 @@ const RewrittenResumeView = () => {
   
 
   useEffect(() => {
-    // Load rewritten content from localStorage
+    
     const storedResumeData = localStorage.getItem(`rewritten_resume_${resumeId}`);
     if (storedResumeData) {
       try {
@@ -39,7 +39,7 @@ const RewrittenResumeView = () => {
       setError("No rewritten resume found. Please go back and rewrite your resume first.");
     }
 
-    // Set PDF URL
+    
     if (resumeId) {
       const pdfUrl = `http://localhost:8000/api/resume/${resumeId}/pdf/`;
       setOriginalPdfUrl(pdfUrl);
@@ -76,7 +76,7 @@ const RewrittenResumeView = () => {
       const processedContent = preprocessResumeContent(response.data.revised_content);
       setRewrittenResume(processedContent);
 
-      // Update localStorage with new content
+      
       localStorage.setItem(`rewritten_resume_${resumeId}`, JSON.stringify({
         content: processedContent,
         timestamp: new Date().toISOString()
@@ -141,41 +141,33 @@ const RewrittenResumeView = () => {
   const preprocessResumeContent = (content) => {
     if (!content) return '';
   
-    // Replace escaped newlines with actual newlines
     let processedContent = content.replace(/\\n/g, '\n');
   
-    // Split content into lines for processing
     const lines = processedContent.split('\n');
   
-    // Process each line
     const processedLines = lines.map(line => {
       let trimmedLine = line.trim();
   
-      // Handle headers
       if (trimmedLine.startsWith('#')) {
         const headerLevel = trimmedLine.match(/^(#+)/)[0].length;
         trimmedLine = trimmedLine.replace(/^(#+)/, '').trim();
         trimmedLine = `<h${headerLevel}>${trimmedLine}</h${headerLevel}>`;
       }
   
-      // Handle bullet points
       if (trimmedLine.startsWith('*') || trimmedLine.startsWith('-')) {
         trimmedLine = trimmedLine.replace(/^([*-])/, '').trim();
         trimmedLine = `<li>${trimmedLine}</li>`;
       }
   
-      // Handle links
       if (trimmedLine.includes('[') && trimmedLine.includes('](')) {
         trimmedLine = trimmedLine.replace(/\[([^\]]+)\]\s*\(\s*([^)]+?)\s*\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
       }
   
-      // Remove any remaining Markdown syntax
       trimmedLine = trimmedLine.replace(/`/g, '').replace(/\*\*/g, '').replace(/\*/g, '');
   
       return trimmedLine;
     });
   
-    // Join the processed lines back into a single string
     return processedLines.join('\n');
   };
   

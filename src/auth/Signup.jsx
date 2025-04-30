@@ -19,7 +19,7 @@ function Signup() {
         email,
         password,
       });
-      // Assume a successful signup returns a token and user info.
+      
       const { token, user } = response.data;
       localStorage.setItem('authToken', token);
       localStorage.setItem('user', JSON.stringify(user));

@@ -58,6 +58,4 @@ function useToast() {
 }
 
 
-// create toast function
-
 export { ToastProvider, useToast };

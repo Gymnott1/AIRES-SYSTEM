@@ -1,12 +1,8 @@
-
-
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { Button } from './components/ui/button';
 import { Scan, MessageSquare, BotMessageSquare, BookOpenCheck , FileText, SquareUser, Loader2 } from 'lucide-react'; 
 import { Progress } from './components/ui/progress';
-
-
 function Analysis({ resumeId }) {
   const [results, setResults] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -15,42 +11,29 @@ function Analysis({ resumeId }) {
   const [newMessage, setNewMessage] = useState('');
   const [conversationList, setConversationList] = useState([]);
   const [showConvoDropdown, setShowConvoDropdown] = useState(false);
-
   const token = localStorage.getItem('authToken'); 
 
-  
   const handleAnalysis = async () => {
     setLoading(true);
     setResults(null); 
     try {
-      
       const headers = {};
       if (token) {
           headers['Authorization'] = `Token ${token}`;
       }
-
       const response = await axios.post(
         'http://localhost:8000/api/analyze_resume/',
         { resume_id: resumeId },
         { headers } 
-      );
-
-      
-      
-      const analysisData = response.data;
-
-      
-      
+      );     
+      const analysisData = response.data;   
       if (analysisData) {
           console.log("Received analysis results:", analysisData);
           setResults(analysisData); 
       } else {
-          
            console.error("Received empty or invalid analysis data structure:", analysisData);
           throw new Error("Received empty analysis data from the server.");
       }
-      
-
     } catch (error) {
       console.error("Analysis error", error);
       let errorMsg = "Analysis failed.";
@@ -68,11 +51,6 @@ function Analysis({ resumeId }) {
         setLoading(false);
     }
   };
-  
-
-  
-
-
   
   const fetchConversations = useCallback(async () => {
     if (!token) return;
@@ -93,8 +71,6 @@ function Analysis({ resumeId }) {
     }
   }, [token, fetchConversations]);
 
-
-  
   const loadConversation = async (selectedResumeId) => {
     try {
       const headers = token ? { Authorization: `Token ${token}` } : {};
@@ -111,7 +87,6 @@ function Analysis({ resumeId }) {
     }
   };
 
-  
   const handleChatSubmit = async (e) => {
     e.preventDefault();
     if (!newMessage.trim()) return;
@@ -164,7 +139,6 @@ function Analysis({ resumeId }) {
     }
   };
 
-
   return (
     <div className="scanbtndiv">
       <div className="scanbtn-container">
@@ -181,18 +155,18 @@ function Analysis({ resumeId }) {
         </Button>
       </div>
 
-      {}
+      
       {results && (
         <div className="analysis-container">
-          {}
+    
           <div>
             <h3>AI Analysis Breakdown:</h3>
-            {}
+
             <div className="analysis-scores">
                 <div>
                     <div className="score-label">
                     <span>Skills</span>
-                    {}
+        
                     <span>{results.scores?.skills ?? 'N/A'}%</span>
                     </div>
                     <Progress value={results.scores?.skills ?? 0} className="progress-bar" />
@@ -221,8 +195,6 @@ function Analysis({ resumeId }) {
             </div>
           </div>
 
-          {}
-          {}
           <div className="key-insights">
             <h3>Key Insights:</h3>
             <ul className="list">
@@ -235,8 +207,6 @@ function Analysis({ resumeId }) {
             </ul>
           </div>
 
-          {}
-          {}
           <div className="improvement-suggestions">
             <h3>Improvement Suggestions:</h3>
             <ul className="list">
@@ -250,16 +220,14 @@ function Analysis({ resumeId }) {
           </div>
 
 
-          {}
           <Button onClick={() => setShowChat(true)} className="scanbtn">
-            <span> Chat with AI <MessageSquare className="ml-2 h-4 w-4 messageCircle" /> </span> {}
+            <span> Chat with AI <MessageSquare className="ml-2 h-4 w-4 messageCircle" /> </span> 
           </Button>
 
-          {}
           {token && (
             <div className="conversation-dropdown">
               <Button className="scanbtn" onClick={() => setShowConvoDropdown(!showConvoDropdown)} >
-                <span> Chat History <BookOpenCheck className="ml-2 h-4 w-4 chevron-down" /> </span> {}
+                <span> Chat History <BookOpenCheck className="ml-2 h-4 w-4 chevron-down" /> </span> 
               </Button>
               {showConvoDropdown && (
                 <ul className="conversation-list">
@@ -277,10 +245,7 @@ function Analysis({ resumeId }) {
             </div>
           )}
         </div>
-      )} {}
-
-
-        {}
+      )} 
       {showChat && (
         <div className="chart-container">
           <div className="chat-box">
@@ -295,7 +260,7 @@ function Analysis({ resumeId }) {
               </div>
             ))}
           </div>
-          <form onSubmit={handleChatSubmit} className="chat-input-form form"> {}
+          <form onSubmit={handleChatSubmit} className="chat-input-form form"> 
             <input
               type="text"
               value={newMessage}

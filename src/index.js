@@ -12,6 +12,4 @@ root.render(
 );
 
 
-
-
 reportWebVitals();

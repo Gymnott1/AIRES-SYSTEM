@@ -1,4 +1,3 @@
-// Tabs.js
 import React from "react";
 import { cn } from "../lib/utils";
 
@@ -23,7 +22,7 @@ export const Tabs = React.forwardRef(
       <div className={cn("tabs-root", className)} ref={ref} {...props}>
         {React.Children.map(children, (child) => {
           if (!React.isValidElement(child)) return child;
-          // Pass activeValue and onValueChange to all immediate children.
+          
           return React.cloneElement(child, {
             activeValue: tabValue,
             onValueChange: handleValueChange,
@@ -44,7 +43,7 @@ export const TabsList = React.forwardRef(
       >
         {React.Children.map(children, (child) => {
           if (!React.isValidElement(child)) return child;
-          // Ensure each trigger gets activeValue and onValueChange
+          
           return React.cloneElement(child, { activeValue, onValueChange });
         })}
       </div>

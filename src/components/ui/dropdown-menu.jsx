@@ -1,24 +1,20 @@
 import React, { useState, createContext, useContext, useRef, useEffect } from 'react';
-import { cn } from '../lib/utils'; // Assuming your simple cn is here
+import { cn } from '../lib/utils'; 
 
-// 1. Create Context
 const DropdownContext = createContext({
   isOpen: false,
   setIsOpen: () => {},
   toggle: () => {},
 });
 
-// Custom hook to use the context
 const useDropdown = () => useContext(DropdownContext);
 
-// 2. DropdownMenu Root Component (Provider)
 export const DropdownMenu = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
 
   const toggle = () => setIsOpen(prev => !prev);
 
-  // Click outside handler
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -46,7 +42,6 @@ export const DropdownMenu = ({ children }) => {
   );
 };
 
-// 3. DropdownMenuTrigger Component
 export const DropdownMenuTrigger = ({ children, className = '', asChild = false, ...props }) => {
   const { toggle, isOpen } = useDropdown();
 
@@ -78,7 +73,6 @@ export const DropdownMenuTrigger = ({ children, className = '', asChild = false,
   );
 };
 
-// 4. DropdownMenuContent Component
 export const DropdownMenuContent = ({ children, className = '', align = 'start', ...props }) => {
   const { isOpen } = useDropdown();
 
@@ -105,8 +99,6 @@ export const DropdownMenuContent = ({ children, className = '', align = 'start',
     </div>
   );
 };
-
-// 5. DropdownMenuItem Component
 export const DropdownMenuItem = ({ children, className = '', onSelect, disabled, ...props }) => {
   const { setIsOpen } = useDropdown();
 
@@ -138,19 +130,16 @@ export const DropdownMenuItem = ({ children, className = '', onSelect, disabled,
   );
 };
 
-// 6. DropdownMenuLabel Component
 export const DropdownMenuLabel = ({ children, className = '', ...props }) => (
   <div className={cn('px-2 py-1.5 text-sm font-semibold text-muted-foreground', className)} {...props}>
     {children}
   </div>
 );
 
-// 7. DropdownMenuSeparator Component
 export const DropdownMenuSeparator = ({ className = '', ...props }) => (
   <div className={cn('-mx-1 my-1 h-px bg-muted', className)} {...props} />
 );
 
-// --- Other Dropdown Components (Placeholders/Not Implemented Simply) ---
 export const DropdownMenuGroup = ({ children, ...props }) => <div {...props}>{children}</div>;
 export const DropdownMenuSub = ({ children }) => { console.warn("Simple DropdownMenu does not support Submenus"); return <>{children}</>; };
 export const DropdownMenuSubTrigger = ({ children }) => { console.warn("Simple DropdownMenu does not support Submenus"); return <>{children}</>; };

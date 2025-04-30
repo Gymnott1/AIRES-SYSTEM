@@ -17,12 +17,12 @@ function Login() {
         username,
         password,
       });
-      // Assume the response contains a token and user info
+      
       const { token, user } = response.data;
-      // Save token and user info in localStorage (or context/state)
+      
       localStorage.setItem('authToken', token);
       localStorage.setItem('user', JSON.stringify(user));
-      // Redirect to Account or Home page
+      
       navigate('/account');
     } catch (err) {
       setError('Invalid credentials. Please try again.');

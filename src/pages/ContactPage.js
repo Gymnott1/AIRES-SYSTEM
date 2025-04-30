@@ -3,8 +3,6 @@ import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card'
 import { Mail, MapPin, Phone, MessageSquare, Send, Clock } from 'lucide-react';
 import './pages.css'; 
 import {  Link } from 'react-router-dom';
-
-
 function ContactPage() {
   const [formData, setFormData] = useState({
     name: '',
@@ -124,7 +122,7 @@ function ContactPage() {
                   Kenya
                 </p>
                 <div className="map-container">
-                  {}
+                  
                   <div className="map-placeholder">
                     <MapPin size={36} />
                     <p>Map location</p>

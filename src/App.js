@@ -77,10 +77,7 @@ function App() {
     return () => window.removeEventListener('storage', checkAuth);
   }, [isAuthenticated, userRole]);
 
-  const handleUploadedSuccess = (data) => {
-    setUploadedResume(data);
-    setResumeContent(data.content || "Resume content not available");
-  };
+  
 
   const handleToggleDarkMode = () => {
     const newMode = !darkMode;
@@ -338,7 +335,7 @@ function App() {
       )
     }
   />
-  {}
+  
   <Route 
     path="/rewritten-resume/:resumeId" 
     element={<ProtectedRoute><RewrittenResumeView /></ProtectedRoute>} 

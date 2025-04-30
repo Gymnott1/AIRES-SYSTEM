@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './container.css';
 import { Upload, CircleAlert, CheckCircle2, AlertCircle } from 'lucide-react';
-import { useNavigate, Link } from 'react-router-dom'; 
+import { Link } from 'react-router-dom'; 
 
 
 const API_URL = 'http://localhost:8000/api';
@@ -13,7 +13,7 @@ function ResumeUpload({ onUploadSuccess = (data) => console.log('Upload success:
   const [validationResult, setValidationResult] = useState(null);
   const [error, setError] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false); 
-  const navigate = useNavigate(); 
+  
 
   
   useEffect(() => {
@@ -178,7 +178,7 @@ function ResumeUpload({ onUploadSuccess = (data) => console.log('Upload success:
   return (
     <div className="container">
       <div>
-        {}
+      
         {!isLoggedIn ? (
            <div className="login-prompt">
              <CircleAlert className="info-icon" />
@@ -190,7 +190,7 @@ function ResumeUpload({ onUploadSuccess = (data) => console.log('Upload success:
               <Upload className="label-input" />
               <p className="label-text">
                 {file ? `Selected: ${file.name}` : "Click to upload your resume (PDF only)"}
-                {validating && <span className="spinner"></span>} {}
+                {validating && <span className="spinner"></span>} 
               </p>
             </div>
             <input
@@ -204,7 +204,7 @@ function ResumeUpload({ onUploadSuccess = (data) => console.log('Upload success:
           </label>
         )}
 
-        {}
+        
         {validationResult && (
           <div className={`validation-result ${validationResult.is_resume ? 'success' : 'error'}`}>
             {validationResult.is_resume ? (
@@ -223,7 +223,7 @@ function ResumeUpload({ onUploadSuccess = (data) => console.log('Upload success:
           </div>
         )}
 
-        {}
+        
         {error && (
           <div className="error-message">
             <CircleAlert className="error-icon" />
@@ -232,7 +232,7 @@ function ResumeUpload({ onUploadSuccess = (data) => console.log('Upload success:
         )}
       </div>
 
-      {}
+      
       <div>
         <p>Welcome to <b>AI-Powered Resume Enhancement System (AIRES)</b>, where you can effortlessly upload your resume for an in-depth scan. Our system analyzes your document to provide personalized feedback, actionable insights, and recommendations for improvement. Plus, you can chat with our AI to further customize your resume, ensuring it meets market standards and enhances your chances of landing your next job</p>
         <span className='warn'><CircleAlert />Our system does not have capability of analyzing images in your document.</span>
